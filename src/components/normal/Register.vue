@@ -139,6 +139,7 @@ export default {
       }
     };
     return {
+			isPass:false,
       ruleForm: {
         user: "",
         pass: "",
@@ -168,7 +169,7 @@ export default {
     },
     resetForm() {
       this.$refs.ruleForm.resetFields();
-    }
+    },
   }
 };
 </script>
