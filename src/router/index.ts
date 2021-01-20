@@ -3,6 +3,7 @@ import Index from "../components/Index.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import Login from "../components/normal/Login.vue";
 import Register from "../components/normal/Register.vue";
+import ReleasePage from "../components/release/ReleasePage.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -11,6 +12,12 @@ const routes: Array<RouteRecordRaw> = [
     component: HelloWorld
     // meta: {title:'皮鱼',keyword:'皮鱼',description:'皮鱼'},
   },
+	{
+	  path: "/ReleasePage",
+	  name: "ReleasePage",
+	  component: ReleasePage
+	  meta: {title:'商品发布-皮鱼',keyword:'商品发布-皮鱼',description:'商品发布-皮鱼'},
+	},
   {
     path: "/",
     name: "Index",

@@ -42,7 +42,7 @@
               autocomplete="off"
             />
           </a-form-item>
-          <a-form-item required has-feedback label="验证码" name="checkCode">
+         <!-- <a-form-item required has-feedback label="验证码" name="checkCode">
             <a-row>
               <a-col>
                 <a-input
@@ -60,7 +60,7 @@
                 />
               </a-col>
             </a-row>
-          </a-form-item>
+          </a-form-item> -->
           <a-form-item :wrapper-col="{ span: 16, offset: 4 }">
             <a-button
               style="margin-left:70px;"
@@ -79,11 +79,17 @@
   >
 </template>
 <script>
+
+import axios from 'axios';
+import { message } from 'ant-design-vue';
+
 export default {
   data() {
     const validateUser = async (rule, value) => {
       if (value === "") {
         return Promise.reject("请输入用户名");
+      } else if (value.length < 6) {
+        return Promise.reject("用户名太短，长度必须大于5");
       } else {
         if (this.ruleForm.checkUser !== "") {
           this.$refs.ruleForm.validateField("checkUser");
@@ -94,8 +100,8 @@ export default {
     const validatePass = async (rule, value) => {
       if (value === "") {
         return Promise.reject("请输入密码");
-      } else if (value.length < 8) {
-        return Promise.reject("密码太短，长度必须大于8");
+      } else if (value.length < 6) {
+        return Promise.reject("密码太短，长度必须大于5");
       } else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
@@ -128,7 +134,7 @@ export default {
         return Promise.resolve();
       }
     };
-    const validateCheckCode = async (rule, value) => {
+   /* const validateCheckCode = async (rule, value) => {
       if (value === "") {
         return Promise.reject("请输入验证码");
       } else {
@@ -137,7 +143,7 @@ export default {
         }
         return Promise.resolve();
       }
-    };
+    }; */
     return {
 			isPass:false,
       ruleForm: {
@@ -145,14 +151,14 @@ export default {
         pass: "",
         pass2: "",
         email: "",
-        checkCode: ""
+        // checkCode: ""
       },
       rules: {
         user: [{ validator: validateUser, trigger: "change" }],
         pass: [{ validator: validatePass, trigger: "change" }],
         pass2: [{ validator: validatePass2, trigger: "change" }],
         email: [{ validator: validateEmail, trigger: "change" }],
-        checkCode: [{ validator: validateCheckCode, trigger: "change" }]
+        // checkCode: [{ validator: validateCheckCode, trigger: "change" }]
       },
       layout: {
         labelCol: { span: 4 },
@@ -162,7 +168,28 @@ export default {
   },
   methods: {
     handleFinish(values) {
-      console.log(values);
+      // console.log(values);
+			let obj = {
+				username:values.user,
+				password:values.pass,
+				email:values.email
+			}
+			
+			axios.put(this.$api.API_USER_REGISTER,obj).then(data=>{
+				// console.log(data.data);
+				let res = data.data;
+				if(res.status){
+					message.success(`${res.data},注册成功
+					请前往邮箱激活账号
+					`);
+					this.$router.push({name:'Login'});
+				}else{
+					message.error(`${res.data},${res.msg}`);
+				}
+			}).catch(e=>{
+				message.error(`网络错误，请联系管理员`);
+				// console.log(e);
+			})
     },
     handleFinishFailed(errors) {
       console.log(errors);

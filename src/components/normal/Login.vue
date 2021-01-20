@@ -43,12 +43,17 @@
   >
 </template>
 <script>
+import axios from 'axios';
+import { message } from 'ant-design-vue';
+import main from '../main';
 export default {
   data() {
     const validateUser = async (rule, value) => {
       if (value === "") {
-        return Promise.reject("Please input the Username");
-      } else {
+        return Promise.reject("请输入用户名");
+      } else if (value.length < 6) {
+        return Promise.reject("用户名长度须大于6");
+      }else {
         if (this.ruleForm.checkUser !== "") {
           this.$refs.ruleForm.validateField("checkUser");
         }
@@ -57,15 +62,16 @@ export default {
     };
     const validatePass = async (rule, value) => {
       if (value === "") {
-        return Promise.reject("Please input the password");
-      } else {
+        return Promise.reject("请输入密码");
+      } else if (value.length < 6) {
+        return Promise.reject("密码长度须大于6");
+      }else {
         if (this.ruleForm.checkPass !== "") {
           this.$refs.ruleForm.validateField("checkPass");
         }
         return Promise.resolve();
       }
     };
-
     return {
       ruleForm: {
         user: "",
@@ -81,9 +87,34 @@ export default {
       }
     };
   },
+	mounted(){
+		if(main.local.get("piyu")){
+			this.$store.state.login = true;
+			this.$router.push({name:"Index"});
+			message.success(`您已是登录状态无需再次登录`,1);
+		}
+	},
   methods: {
     handleFinish(values) {
       console.log(values);
+			let obj = {
+				username: values.user,
+				password: values.pass,
+			}
+			axios.post(this.$api.API_USER_LOGIN,obj).then(data=>{
+				let res = data.data;
+				if(res.status){
+					console.log(data.data);
+					main.local.set("piyu",res.data);
+					message.success(`${res.data.username},欢迎回来`);
+					this.$store.state.login = true;
+					this.$router.push({name:"Index"})
+				}else{
+					message.error(`${res.msg}`);
+				}
+			}).catch(e=>{
+				message.error(`网络错误，请联系管理员`);
+			})
     },
     handleFinishFailed(errors) {
       console.log(errors);

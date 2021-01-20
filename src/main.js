@@ -12,11 +12,11 @@ import Footer from "./components/common/Footer.vue";
 
 import {setupGlobalMethods} from "./utils/globalMethod";
 
-
 const Vue = createApp(App);
 
 
 document.title = "皮鱼_开发版";
+
 
 Vue.use(router)
   .use(store)

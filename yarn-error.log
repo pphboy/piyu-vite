@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add vue3-slide-verify-code
+  C:\Program Files\nodejs\node.exe C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files\Java\jdk1.8.0_191\bin;C:\Program Files\Java\jre1.8.0_191\bin;D:\tools\MinGW\bin;D:\tools\nginx-1.14.0;D:\phpstudy_pro\Extensions\composer1.8.5;D:\phpstudy_pro\Extensions\php\php7.3.4nts;C:\MinGW\bin;C:\Program Files\nodejs\;E:\Program Files\Git\cmd;C:\Program Files\Git\usr\bin;C:\Users\pipihao\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\pipihao\AppData\Local\Programs\Python\Python38\;C:\Users\pipihao\AppData\Local\Microsoft\WindowsApps;;C:\Users\pipihao\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\pipihao\AppData\Roaming\npm;C:\Program Files\Bandizip\
+  C:\Users\pipihao\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\local\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\usr\bin;C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\pipihao\bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0;C:\Windows\System32\OpenSSH;C:\Program Files\Java\jdk1.8.0_191\bin;C:\Program Files\Java\jre1.8.0_191\bin;D:\tools\MinGW\bin;D:\tools\nginx-1.14.0;D:\phpstudy_pro\Extensions\composer1.8.5;D:\phpstudy_pro\Extensions\php\php7.3.4nts;C:\MinGW\bin;C:\Program Files\nodejs;E:\Program Files\Git\cmd;C:\Program Files\Git\usr\bin;C:\Users\pipihao\AppData\Local\Programs\Python\Python38\Scripts;C:\Users\pipihao\AppData\Local\Programs\Python\Python38;C:\Users\pipihao\AppData\Local\Microsoft\WindowsApps;C:\Users\pipihao\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\pipihao\AppData\Roaming\npm;C:\Program Files\Bandizip;C:\Program Files\Git\usr\bin\vendor_perl;C:\Program Files\Git\usr\bin\core_perl
 
 Yarn version: 
   1.22.10
@@ -14,21 +14,16 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.npm.taobao.org/vue3-slide-verify-code: Not found
-      at Request.params.callback [as _callback] (C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:66988:18)
-      at Request.self.callback (C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:140662:22)
-      at Request.emit (events.js:314:20)
-      at Request.<anonymous> (C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141634:10)
-      at Request.emit (events.js:314:20)
-      at IncomingMessage.<anonymous> (C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:141556:12)
-      at Object.onceWrapper (events.js:420:28)
-      at IncomingMessage.emit (events.js:326:22)
-      at endReadableNT (_stream_readable.js:1252:12)
-      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+  SyntaxError: D:\Projects\PiYU\piyu-vite\package.json: Unexpected token / in JSON at position 390
+      at JSON.parse (<anonymous>)
+      at C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:310:30)
+      at C:\Users\pipihao\AppData\Roaming\npm\node_modules\yarn\lib\cli.js:321:13
 
 npm manifest: 
   {
-    "name": "test",
+    "name": "piyu-vite",
     "version": "0.0.0",
     "scripts": {
       "dev": "vite",
@@ -39,18 +34,19 @@ npm manifest:
       "axios": "^0.21.1",
       "core-js": "^3.6.5",
       "vue": "^3.0.0",
+      "vue-axios": "^3.2.2",
       "vue-class-component": "^8.0.0-0",
       "vue-router": "^4.0.0-0",
       "vuex": "^4.0.0-0"
     },
     "devDependencies": {
-      "@typescript-eslint/eslint-plugin": "^2.33.0",
-      "@typescript-eslint/parser": "^2.33.0",
+      // "@typescript-eslint/eslint-plugin": "^2.33.0",
+      // "@typescript-eslint/parser": "^2.33.0",
       "@vue/compiler-sfc": "^3.0.4",
-      "eslint": "^6.7.2",
-      "eslint-plugin-prettier": "^3.1.3",
-      "eslint-plugin-vue": "^7.0.0-0",
-      "prettier": "^2.2.1",
+      // "eslint": "^6.7.2",
+      // "eslint-plugin-prettier": "^3.1.3",
+      // "eslint-plugin-vue": "^7.0.0-0",
+      // "prettier": "^2.2.1",
       "typescript": "~3.9.3",
       "vite": "^1.0.0-rc.13"
     },
@@ -2983,6 +2979,11 @@ Lockfile:
       source-map "^0.7.3"
       vue "^3.0.3"
       ws "^7.3.1"
+  
+  vue-axios@^3.2.2:
+    version "3.2.2"
+    resolved "https://registry.npm.taobao.org/vue-axios/download/vue-axios-3.2.2.tgz#c945694a4b7f4f741a07afbaec9e76b4877b618f"
+    integrity sha1-yUVpSkt/T3QaB6+67J52tId7YY8=
   
   vue-class-component@^8.0.0-0:
     version "8.0.0-rc.1"

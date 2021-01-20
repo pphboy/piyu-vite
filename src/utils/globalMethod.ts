@@ -8,9 +8,9 @@ import {App} from 'vue';
 
 export function setupGlobalMethods(app : App){
 	// console.log(Vue)
-	app.config.globalProperties.$testData = api;
+	app.config.globalProperties.$api = api;
 	// console.log(Vue.config);
-	app.config.globalProperties.hello = ()=>{
+/* 	app.config.globalProperties.hello = ()=>{
 		console.log("HelloWorld")
-	};
+	}; */
 }
