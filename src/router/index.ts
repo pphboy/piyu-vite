@@ -15,8 +15,12 @@ const routes: Array<RouteRecordRaw> = [
 	{
 	  path: "/ReleasePage",
 	  name: "ReleasePage",
-	  component: ReleasePage
-	  meta: {title:'商品发布-皮鱼',keyword:'商品发布-皮鱼',description:'商品发布-皮鱼'},
+	  component: ReleasePage,
+	  meta: {
+	    title: "帖子发布界面",
+	    keyword: "帖子发布界面",
+	    description: "帖子发布界面"
+	  }
 	},
   {
     path: "/",
