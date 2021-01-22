@@ -17,9 +17,9 @@ const routes: Array<RouteRecordRaw> = [
 	  name: "ReleasePage",
 	  component: ReleasePage,
 	  meta: {
-	    title: "帖子发布界面",
-	    keyword: "帖子发布界面",
-	    description: "帖子发布界面"
+	    title: "皮物发布界面",
+	    keyword: "皮物发布界面",
+	    description: "皮物发布界面"
 	  }
 	},
   {
