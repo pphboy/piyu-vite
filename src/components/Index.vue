@@ -56,7 +56,6 @@ import { HomeOutlined } from '@ant-design/icons-vue';
 import { Options, Vue } from "vue-class-component";
 import {ref} from 'vue';
 import IndexPro from './child/IndexPro.vue';
-import main from './main';
 
 export default {
 	data() {
@@ -82,10 +81,6 @@ export default {
 	  },
 	components:{
 		IndexPro
-	},beforeCreate(){
-		if(main.local.get("piyu")){
-			this.$store.state.login = true;
-		}
 	},
 	setup(){
 		

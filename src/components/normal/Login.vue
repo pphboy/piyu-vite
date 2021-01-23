@@ -89,7 +89,6 @@ export default {
   },
 	mounted(){
 		if(main.local.get("piyu")){
-			this.$store.state.login = true;
 			this.$router.push({name:"Index"});
 			message.success(`您已是登录状态无需再次登录`,1);
 		}

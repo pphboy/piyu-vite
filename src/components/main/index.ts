@@ -1,3 +1,6 @@
+/* 
+	本类为一个全局的操作类
+ */
 
 export default {
 	/* Local */

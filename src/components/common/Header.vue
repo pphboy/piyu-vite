@@ -29,11 +29,11 @@
 									<template #overlay>
 										<a-menu @click="handleMenuClick">
 											<a-menu-item @click="$router.push('UserInfo')" key="1"><UserOutlined />个人信息</a-menu-item>
-											<a-menu-item key="2"><ProfileOutlined />我的商品</a-menu-item>
-											<a-menu-item key="2"><UngroupOutlined />帖子管理</a-menu-item>
+											<a-menu-item key="4"><MoneyCollectOutlined />皮鱼钱包</a-menu-item>
+											<a-menu-item @click="$router.push('PiProduct')" key="2"><ProfileOutlined />皮物皮帖</a-menu-item>
 											<a-menu-item key="2"><SolutionOutlined />收货地址</a-menu-item>
 											<a-menu-item key="3"><HistoryOutlined />历史足迹</a-menu-item>
-											<a-menu-item key="3"><LogoutOutlined />退出登录</a-menu-item>
+											<a-menu-item key="7"><LogoutOutlined />退出登录</a-menu-item>
 										</a-menu>
 									</template>
 									<a-button style="margin-left: 8px" type="primary"> 菜单 <DownOutlined /> </a-button>
@@ -47,8 +47,17 @@
 </template>
 
 <script>
-import { UserOutlined, DownOutlined,HistoryOutlined
-,PlusOutlined,LogoutOutlined,ProfileOutlined,SolutionOutlined,UngroupOutlined} from '@ant-design/icons-vue';
+import {
+	UserOutlined,
+	DownOutlined,
+	PlusOutlined,
+	LogoutOutlined,
+	ProfileOutlined,
+	SolutionOutlined,
+	UngroupOutlined,
+	HistoryOutlined,
+	MoneyCollectOutlined
+} from '@ant-design/icons-vue';
 
 export default{
 	components: {
@@ -59,7 +68,8 @@ export default{
 			ProfileOutlined,
 			SolutionOutlined,
 			UngroupOutlined,
-			HistoryOutlined
+			HistoryOutlined,
+			MoneyCollectOutlined
 	},
 	methods:{
 		getUser(){

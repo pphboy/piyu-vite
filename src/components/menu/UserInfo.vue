@@ -1,6 +1,7 @@
 <template>
 	<a-layout-content style="padding:5px;">
 		<a-card
+		:bordered="false"
 		   style="width:100%"
 				:tab-list="tabList"
 		   :active-tab-key="key"
@@ -9,8 +10,10 @@
 		   <template #customRender="item">
 		     <span>{{ item.key }} </span>
 		   </template>
-			 <BasicUserInfo/>
-		   {{ contentList[key] }}
+			 <!-- 基本信息-->
+			 <BasicUserInfo v-if="key == 'tab1' "/>
+			 <!-- 个人空间地址-->
+			 <PersonalSpace v-else/>
 		 </a-card>
 	</a-layout-content>
 		
@@ -18,11 +21,13 @@
 
 <script lang="ts">
 	import BasicUserInfo from "/@/components/child/UserInfo/BasicUserInfo.vue"
+	import PersonalSpace from "/@/components/child/UserInfo/PersonalSpace.vue"
 	// import { HomeOutlined } from '@ant-design/icons-vue';
 	export default {
 	  components: {
 	    // HomeOutlined,
-			BasicUserInfo
+			BasicUserInfo,
+			PersonalSpace
 	  },
 	  data() {
 	    return {

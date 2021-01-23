@@ -5,8 +5,15 @@ import Login from "../components/normal/Login.vue";
 import Register from "../components/normal/Register.vue";
 import ReleasePage from "../components/release/ReleasePage.vue";
 import UserInfo from "../components/menu/UserInfo.vue";
+import PiProduct from "/@/components/menu/PiProduct.vue";
 
 const routes: Array<RouteRecordRaw> = [
+	{
+	  path: "/PiProduct",
+	  name: "PiProduct",
+	  component: PiProduct,
+	  meta: {title:'我的皮物-皮鱼',keyword:'我的皮物-皮鱼',description:'我的皮物-皮鱼'},
+	},
 	{
 	  path: "/UserInfo",
 	  name: "UserInfo",
