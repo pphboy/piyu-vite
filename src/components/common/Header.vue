@@ -28,7 +28,7 @@
 								<a-dropdown >
 									<template #overlay>
 										<a-menu @click="handleMenuClick">
-											<a-menu-item key="1"><UserOutlined />个人信息</a-menu-item>
+											<a-menu-item @click="$router.push('UserInfo')" key="1"><UserOutlined />个人信息</a-menu-item>
 											<a-menu-item key="2"><ProfileOutlined />我的商品</a-menu-item>
 											<a-menu-item key="2"><UngroupOutlined />帖子管理</a-menu-item>
 											<a-menu-item key="2"><SolutionOutlined />收货地址</a-menu-item>

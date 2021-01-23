@@ -4,8 +4,15 @@ import HelloWorld from "../components/HelloWorld.vue";
 import Login from "../components/normal/Login.vue";
 import Register from "../components/normal/Register.vue";
 import ReleasePage from "../components/release/ReleasePage.vue";
+import UserInfo from "../components/menu/UserInfo.vue";
 
 const routes: Array<RouteRecordRaw> = [
+	{
+	  path: "/UserInfo",
+	  name: "UserInfo",
+	  component: UserInfo,
+	  meta: {title:'个人信息-皮鱼',keyword:'个人信息-皮鱼',description:'个人信息-皮鱼'},
+	},
   {
     path: "/HelloWorld",
     name: "HelloWorld",
