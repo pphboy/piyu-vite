@@ -13,18 +13,21 @@
 
 使用vite+Vue3 + typescript
 
+#### 效果图
+
+<img src="D:\Projects\PiYU\piyu-vite\README.assets\1611570358798.png" alt="1611570358798" style="zoom: 25%;" />
+
 
 #### 安装教程
 
-1.  xxxx
+1.  在Local Storage 内添加 一对 piyu:123123 即可正常看其它界面效果
+    * ![1611570443447](D:\Projects\PiYU\piyu-vite\README.assets\1611570443447.png)
 2.  xxxx
 3.  xxxx
 
 #### 使用说明
 
 1.  yarn dev 启动项目
-2.  xxxx
-3.  xxxx
 
 #### 参与贡献
 
@@ -32,8 +35,3 @@
 2.  新建 Feat_xxx 分支
 3.  提交代码
 4.  新建 Pull Request
-
-
-#### 特技
-
-1.  
