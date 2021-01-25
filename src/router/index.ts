@@ -8,8 +8,22 @@ import UserInfo from "../components/menu/UserInfo.vue";
 import PiProduct from "/@/components/menu/PiProduct.vue";
 import Wallet from "/@/components/menu/Wallet.vue";
 import ShopAddress from "/@/components/menu/ShopAddress.vue";
+import Trading from "/@/components/menu/Trading.vue";
+import FootPrint from "/@/components/menu/FootPrint.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/FootPrint",
+    name: "FootPrint",
+    component: FootPrint,
+    meta: {title:'历史足迹-皮鱼',keyword:'历史足迹-皮鱼',description:'历史足迹-皮鱼'},
+  },
+  {
+    path: "/Trading",
+    name: "Trading",
+    component: Trading,
+    meta: {title:'交易记录-皮鱼',keyword:'交易记录-皮鱼',description:'交易记录-皮鱼'},
+  },
 	{
 	  path: "/ShopAddress",
 	  name: "ShopAddress",

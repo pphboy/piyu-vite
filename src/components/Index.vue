@@ -28,6 +28,24 @@
 					  </a-card>
 				</a-layout-content>
 				<a-layout-sider>
+					<a-card size="small" title="最新帖子" >
+							<a-list item-layout="horizontal" :data-source="data">
+							    <template #renderItem="{ item, index }">
+							      <a-list-item>
+							        <a-list-item-meta
+							          :description="'Ant Design, a design language for background applications, is refined by Ant UED Team'.substring(0,20)+'...'"
+							        >
+							          <template #title>
+							            <a href="https://www.antdv.com/">{{ item.title.substring(0,8) }}...</a>
+							          </template>
+							          <template #avatar>
+							            <a-avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />
+							          </template>
+							        </a-list-item-meta>
+							      </a-list-item>
+							    </template>
+							  </a-list>
+					</a-card>
 					<a-card size="small" title="最新评论" >
 						<a-row v-for="i in 5" :key="i">
 							<a-col :span="4">
@@ -46,7 +64,9 @@
 					</a-card>
 				</a-layout-sider>
 			</a-layout>
-			<a-layout-footer>Footer</a-layout-footer>
+			<a-layout-footer>
+				<!-- Footer -->
+			</a-layout-footer>
 		</a-layout>
   </div>
 </template>
@@ -60,6 +80,20 @@ import IndexPro from './child/IndexPro.vue';
 export default {
 	data() {
 	    return {
+	    	data:[
+	    		{
+				    title: '皮物是什么？呢想自己搞个皮物',
+				  },
+				  {
+				    title: 'Ant Design Title 2',
+				  },
+				  {
+				    title: 'Ant Design Title 3',
+				  },
+				  {
+				    title: 'Ant Design Title 4',
+				  }
+			  ],
 	      tabListNoTitle: [
 	        {
 	          key: 'article',

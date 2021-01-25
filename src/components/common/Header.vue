@@ -12,7 +12,7 @@
 							<span v-if="$store.state.login && getUser()">
 								
 								<!-- 连接 发布内容界面 -->
-								<a-button @click="$router.push({name:'ReleasePage'})"  shape="circle">
+								<a-button @click="$router.push({name:'/ReleasePage'})"  shape="circle">
 								  <template #icon><PlusOutlined title="发表内容" /> </template
 								></a-button>
 								
@@ -21,21 +21,19 @@
 								</a-avatar>
 								
 								<h4 style="display: inline;margin-left:10px;color:white;">用户名</h4>
-														
 								<!-- <a-badge :count="99">  以后有时间再写这个功能
 								    <a-button style="margin-left: 8px" type="primary"> 信息 </a-button>
 								</a-badge> -->
 								<a-dropdown >
 									<template #overlay>
 										<a-menu @click="handleMenuClick">
-											<a-menu-item @click="$router.push('UserInfo')" key="1"><UserOutlined />个人信息</a-menu-item>
-											<a-menu-item @click="$router.push('Wallet')" key="4"><MoneyCollectOutlined />皮鱼钱包</a-menu-item>
-											<a-menu-item @click="$router.push('PiProduct')" key="2"><ProfileOutlined />皮物皮帖</a-menu-item>
-											<a-menu-item @click="$router.push('ShopAddress')" key="2"><SolutionOutlined />收货地址</a-menu-item>
-											<a-menu-item key="5"><SolutionOutlined />订单支付</a-menu-item>
-											<a-menu-item key="6"><SolutionOutlined />交易记录</a-menu-item>
-											<a-menu-item key="3"><HistoryOutlined />历史足迹</a-menu-item>
-											<a-menu-item key="7"><LogoutOutlined />退出登录</a-menu-item>
+											<a-menu-item @click="$router.push('/UserInfo')" key="1"><UserOutlined />个人信息</a-menu-item>
+											<a-menu-item @click="$router.push('/Wallet')" key="4"><MoneyCollectOutlined />皮鱼钱包</a-menu-item>
+											<a-menu-item @click="$router.push('/PiProduct')" key="2"><ProfileOutlined />皮物皮帖</a-menu-item>
+											<a-menu-item @click="$router.push('/ShopAddress')" key="2"><SolutionOutlined />收货地址</a-menu-item>
+											<a-menu-item @click="$router.push('/Trading')" key="6"><ProjectOutlined />交易记录</a-menu-item>
+											<a-menu-item @click="$router.push('/FootPrint')" key="3"><HistoryOutlined />历史足迹</a-menu-item>
+											<a-menu-item @click="logOut" key="7"><LogoutOutlined />退出登录</a-menu-item>
 										</a-menu>
 									</template>
 									<a-button style="margin-left: 8px" type="primary"> 菜单 <DownOutlined /> </a-button>
@@ -58,8 +56,11 @@ import {
 	SolutionOutlined,
 	UngroupOutlined,
 	HistoryOutlined,
-	MoneyCollectOutlined
+	MoneyCollectOutlined,
+	ProjectOutlined
 } from '@ant-design/icons-vue';
+import main from '/@/components/main';
+import { message } from 'ant-design-vue';
 
 export default{
 	components: {
@@ -71,12 +72,19 @@ export default{
 			SolutionOutlined,
 			UngroupOutlined,
 			HistoryOutlined,
-			MoneyCollectOutlined
+			MoneyCollectOutlined,
+			ProjectOutlined
 	},
 	methods:{
 		getUser(){
 			console.log("获取用户");
 			return true;
+		},
+		logOut(){
+			message.success("退出登录成功");
+			main.local.remove("piyu");
+			this.$store.state.login = false;
+			console.log("退出登录");
 		}
 	}
 }
