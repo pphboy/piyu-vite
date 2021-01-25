@@ -15,13 +15,13 @@
 
 #### 效果图
 
-<img src="D:\Projects\PiYU\piyu-vite\README.assets\1611570358798.png" alt="1611570358798" style="zoom: 25%;" />
+<img src="README.assets/1611570358798.png" alt="1611570358798" style="zoom: 25%;" />
 
 
 #### 安装教程
 
 1.  在Local Storage 内添加 一对 piyu:123123 即可正常看其它界面效果
-    * ![1611570443447](D:\Projects\PiYU\piyu-vite\README.assets\1611570443447.png)
+    * ![1611570559026](README.assets/1611570559026.png)
 2.  xxxx
 3.  xxxx
 
