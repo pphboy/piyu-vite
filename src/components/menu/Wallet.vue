@@ -26,8 +26,7 @@
 	<a-modal v-model:visible="visible2" title="充值皮鱼账户" cancelText="关闭" okText="确认" @ok="handleOk('visible2')">
 		请输入提现金额 (单位元) : 
 		<a-input-number min="0.01" max="99999" /><br><br>
-		请输入支付宝账号 :
-		<a-input style="width:175px;" maxlength="20" /><br>
+
 	</a-modal>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-	<a-layout-content style="padding:5px;">
+	<a-layout-content style="padding:5px;min-height:587px;">
 		<a-card
 		:bordered="false"
 		   style="width:100%"

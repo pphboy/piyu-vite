@@ -6,6 +6,11 @@
 			<br><br>
 		</a-col>
 		<a-col :span="18">
+			<h3>支付宝账号</h3>
+			<a-input maxlength="20" /><br>
+			<br>
+		</a-col>
+		<a-col :span="18">
 			<h3>性别</h3>
 			 <a-radio-group v-model:value="gender" @change="onChange">
 				<a-radio :value="1">
