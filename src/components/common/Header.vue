@@ -12,7 +12,7 @@
 							<span v-if="$store.state.login && getUser()">
 								
 								<!-- 连接 发布内容界面 -->
-								<a-button @click="$router.push({name:'/ReleasePage'})"  shape="circle">
+								<a-button @click="$router.push({name:'ReleasePage'})"  shape="circle">
 								  <template #icon><PlusOutlined title="发表内容" /> </template
 								></a-button>
 								
