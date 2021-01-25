@@ -6,8 +6,22 @@ import Register from "../components/normal/Register.vue";
 import ReleasePage from "../components/release/ReleasePage.vue";
 import UserInfo from "../components/menu/UserInfo.vue";
 import PiProduct from "/@/components/menu/PiProduct.vue";
+import Wallet from "/@/components/menu/Wallet.vue";
+import ShopAddress from "/@/components/menu/ShopAddress.vue";
 
 const routes: Array<RouteRecordRaw> = [
+	{
+	  path: "/ShopAddress",
+	  name: "ShopAddress",
+	  component: ShopAddress,
+	  meta: {title:'收货地址-皮鱼',keyword:'收货地址-皮鱼',description:'收货地址-皮鱼'},
+	},
+	{
+	  path: "/Wallet",
+	  name: "Wallet",
+	  component: Wallet,
+	  meta: {title:'钱包-皮鱼',keyword:'钱包-皮鱼',description:'钱包-皮鱼'},
+	},
 	{
 	  path: "/PiProduct",
 	  name: "PiProduct",

@@ -29,9 +29,11 @@
 									<template #overlay>
 										<a-menu @click="handleMenuClick">
 											<a-menu-item @click="$router.push('UserInfo')" key="1"><UserOutlined />个人信息</a-menu-item>
-											<a-menu-item key="4"><MoneyCollectOutlined />皮鱼钱包</a-menu-item>
+											<a-menu-item @click="$router.push('Wallet')" key="4"><MoneyCollectOutlined />皮鱼钱包</a-menu-item>
 											<a-menu-item @click="$router.push('PiProduct')" key="2"><ProfileOutlined />皮物皮帖</a-menu-item>
-											<a-menu-item key="2"><SolutionOutlined />收货地址</a-menu-item>
+											<a-menu-item @click="$router.push('ShopAddress')" key="2"><SolutionOutlined />收货地址</a-menu-item>
+											<a-menu-item key="5"><SolutionOutlined />订单支付</a-menu-item>
+											<a-menu-item key="6"><SolutionOutlined />交易记录</a-menu-item>
 											<a-menu-item key="3"><HistoryOutlined />历史足迹</a-menu-item>
 											<a-menu-item key="7"><LogoutOutlined />退出登录</a-menu-item>
 										</a-menu>
