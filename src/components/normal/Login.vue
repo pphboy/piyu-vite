@@ -92,6 +92,7 @@ export default {
 			this.$router.push({name:"Index"});
 			message.success(`您已是登录状态无需再次登录`,1);
 		}
+
 	},
   methods: {
     handleFinish(values) {
@@ -106,7 +107,9 @@ export default {
 					console.log(data.data);
 					main.local.set("piyu",res.data);
 					message.success(`${res.data.username},欢迎回来`);
-					this.$store.state.login = true;
+          this.$store.state.login = true;
+          this.$store.state.userInfo.headImage = res.data.headImage;
+          this.$store.state.userInfo.username = res.data.username;
 					this.$router.push({name:"Index"})
 				}else{
 					message.error(`${res.msg}`);
