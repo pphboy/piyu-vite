@@ -17,7 +17,7 @@ export default {
 		 */
 		if(main.local.get("piyu")){
 			this.$store.state.login = true;
-		}
+    }
 	}
 }
 </script>

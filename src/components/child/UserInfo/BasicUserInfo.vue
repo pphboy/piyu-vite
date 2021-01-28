@@ -1,13 +1,22 @@
 <template>
 	<a-row>
 		<a-col :span="18">
-			<h3>昵称</h3>
-			<a-input size="large" />
-			<br><br>
+		  <a-avatar :size="64" icon="user" />
+		  <br><br>
+			<a-upload
+		    name="file"
+		    :multiple="true"
+		    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+		    :headers="headers"
+		    @change="handleChange"
+		  >
+		    <a-button> <a-icon type="upload" />上传头像</a-button>
+		  </a-upload>
+		  <br><br>
 		</a-col>
 		<a-col :span="18">
 			<h3>支付宝账号</h3>
-			<a-input maxlength="20" /><br>
+			<a-input maxlength="20" size="large" /><br>
 			<br>
 		</a-col>
 		<a-col :span="18">
@@ -44,13 +53,26 @@
 			let data = reactive({
 				gender:3 ,// 1，男，2，女，3 空,
 				introduction:null,
+				headers: {
+	        authorization: 'authorization-text',
+	      },
 			});
 			return data
 		},
 		methods:{
 			onChange(){
 				
-			}
+			},
+			handleChange(info) {
+	      if (info.file.status !== 'uploading') {
+	        console.log(info.file, info.fileList);
+	      }
+	      if (info.file.status === 'done') {
+	        this.$message.success(`${info.file.name} file uploaded successfully`);
+	      } else if (info.file.status === 'error') {
+	        this.$message.error(`${info.file.name} file upload failed.`);
+	      }
+	    },
 		}
 	}
 </script>

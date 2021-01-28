@@ -1,5 +1,6 @@
 <template>
 	<a-card :bordered="false">
+		
 		<a-row>
 			<a-col  :span="24">
 				<h3>{{priceCom?"皮物":"帖子"}}标题</h3>
@@ -22,7 +23,14 @@
 			<!-- 价格 -->
 			<a-col v-if="priceCom" :span="24">
 						<h3>皮物价格</h3>
-				    <a-input-number v-model:value="price" size="large" :min="0.01" :max="999999"  />
+				    <a-input-number precision="2" v-model:value="price" size="large" :min="0.01" :max="999999"  />
+						<span style="margin-left:10px;">金额范围 0.01 ~ 999999 元</span>
+						<MoneyCollectOutlined style="font-size: 25px;margin:5px 0 0 5px;" />
+				<br><br>
+			</a-col>
+			<a-col v-if="priceCom" :span="24">
+						<h3>皮物运费</h3>
+				    <a-input-number precision="2" v-model:value="freight" size="large" :min="0.01" :max="999999"  />
 						<span style="margin-left:10px;">金额范围 0.01 ~ 999999 元</span>
 						<MoneyCollectOutlined style="font-size: 25px;margin:5px 0 0 5px;" />
 				<br><br>
@@ -32,7 +40,7 @@
 				<h3>{{priceCom?"皮物":"帖子"}}分类</h3>
 				<a-radio-group v-model:value="checkClassId" size="large">
 					<a-radio-button  v-for="c in articleClassArray" :key="c.id" :value="c.id.toString()">
-						{{c.name}}
+						{{c.className}}
 					</a-radio-button>
 				</a-radio-group>
 					<br><br>
@@ -58,6 +66,8 @@
 </template>
 
 <script lang="ts">
+  import axios from "axios";
+  import main from '/@/components/main';
 	import {message} from 'ant-design-vue';
 	import {MoneyCollectOutlined} from '@ant-design/icons-vue';
 	import '../css/ReleaseProduct.css';
@@ -73,18 +83,19 @@
 				checkClassId:null,  // 选中的皮物分类
 				address:null, // 皮物地址
 				vditor:null,  // 皮物介绍的编辑器实例
+				freight:null, //运费
 				articleClassArray:[
 					{
 						id:1,
-						name:"电子"
+						className:"无网"
 					},
 					{
 						id:2,
-						name:"数码"
+						className:"络的"
 					},
 					{
 						id:3,
-						name:"开源"
+						className:"状态"
 					}
 				]
 			});
@@ -101,6 +112,7 @@
 			MoneyCollectOutlined
 	  },
 	  mounted () {
+	  	var vm = this;
 			this.vditor = new Vditor('vditor', {
 				height: 360,
 				toolbarConfig: {
@@ -109,6 +121,23 @@
 				cache: {
 					enable: false,
 				},
+				upload: {
+
+					fieldName:"file",
+					headers:{
+						token:main.local.get("piyu").token,
+					},
+					withCredentials:true,
+		      accept: 'image/*,.mp3, .wav, .rar',
+		      token: main.local.get("piyu").token,
+		      url:this.$api.API_UPLOAD_FILE,
+		      linkToImgUrl:this.$api.API_UPLOAD_FILE,
+		      filename (name) {
+		        return name.replace(/[^(a-zA-Z0-9\u4e00-\u9fa5\.)]/g, '').
+		          replace(/[\?\\/:|<>\*\[\]\(\)\$%\{\}@~]/g, '').
+		          replace('/\\s/g', '')
+		      },
+		    },
 				after: () => {
 					this.vditor.setValue("");
 				},
@@ -134,7 +163,7 @@
 					'insert-after',
 					'|',
 					'upload',
-					'record',
+					// 'record',
 					'table',
 					'|',
 					'undo',
@@ -155,12 +184,28 @@
 						],
 					}],
 				})
+			console.log(main.local.get("piyu"));
+      this.getPiProductClass();
 		},
 	  data() {
 	    return {
+
 	    };
 	  },
 	  methods: {
+      /*
+        获取皮物分类
+       */
+      getPiProductClass(){
+        axios.post(this.$api.API_PIPRODUCT_CLASS_ALL).then(data=>{
+          console.log(data);
+          if(data.data){
+            this.articleClassArray = data.data.data;
+          }
+        }).catch(e=>{
+          console.log(e);
+        });
+      },
 	    send(){
 				if(!this.title){
 					message.error('请填写文章标题');
@@ -170,6 +215,10 @@
 				if(this.priceCom){
 					if(!this.price){
 						message.error('请填写皮物金额');
+						return;
+					}
+					if(!this.freight){
+						message.error('请填写皮物运费');
 						return;
 					}
 					if(!this.checkClassId){
@@ -204,14 +253,23 @@
 						}
 					}
 				}
-				
-				
-				console.log({
+
+				axios.post(this.$api.API_PIPRODUCT_SEND,{
 					title:this.title,
 					price:this.price,
 					classId:this.checkClassId,
 					address:this.address,
 					content:this.vditor.getValue(),
+					freight:this.freight,					
+				}).then(res=>{
+					// console.log(res);
+					if(res.data.status){
+						message.success("发布皮物成功");
+						this.reset();
+					}
+				}).catch(e=>{
+					console.log(e);
+					message.error("网络错误，请联系管理员处理本问题");
 				});
 			},
 			reset(){
@@ -220,6 +278,7 @@
 				this.checkClassId = null;
 				this.address = null;
 				this.vditor.setValue("");
+				this.freight = null;
 			}
 	  },
 	};
