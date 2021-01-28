@@ -53,6 +53,8 @@
 				console.log(res);
 				if(res.data.status){
 					data.wallet = res.data.data;
+				}else{
+					this.$message.error( res.data.msg);
 				}
 			}).catch(e=>{
 				console.log(e);

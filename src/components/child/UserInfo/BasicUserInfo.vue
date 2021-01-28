@@ -60,6 +60,7 @@
 
 <script lang="ts">
 	import axois from 'axios';
+	import main from '/@/components/main';
 	import {reactive} from 'vue';
 	import api from '/@/info/ApiUtils';
 	export default{
@@ -123,10 +124,17 @@
 				axois.post(this.$api.API_USER_INFO,vm.user).then(res=>{
 					if(res.data.status){
 						this.$message.success("更新用户数据成功");
+						let info = main.local.get("piyu");
+						/*把本地的头像改了*/
+						info.headImage = vm.user.headImage;
+						main.local.set("piyu",info);
+						/*把vuex中的头像改了*/
+						vm.$store.state.userInfo.headImage = vm.user.headImage;
 					}else{
 						this.$message.error(res.data.msg);
 					}
 				}).catch(e=>{
+					console.log(e);
 					this.$message.warning("网络错误，请联系管理员解决问题");
 				})
 			},

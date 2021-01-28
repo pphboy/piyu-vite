@@ -16,11 +16,10 @@
 								  <template #icon><PlusOutlined title="发表内容" /> </template
 								></a-button>
 								
-								<a-avatar style="margin-bottom:6px;margin-left:5px;" >
-										<a-icon slot="icon" type="user" />
+								<a-avatar :src="$store.state.userInfo.headImage" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style="margin-bottom:6px;margin-left:5px;" >
 								</a-avatar>
 								
-								<h4 style="display: inline;margin-left:10px;color:white;">用户名</h4>
+								<h4 style="display: inline;margin-left:10px;color:white;">{{$store.state.userInfo.username}}</h4>
 								<!-- <a-badge :count="99">  以后有时间再写这个功能
 								    <a-button style="margin-left: 8px" type="primary"> 信息 </a-button>
 								</a-badge> -->
@@ -46,7 +45,7 @@
 		</a-layout>
 </template>
 
-<script>
+<script lang="ts">
 import {
 	UserOutlined,
 	DownOutlined,
@@ -61,7 +60,7 @@ import {
 } from '@ant-design/icons-vue';
 import main from '/@/components/main';
 import { message } from 'ant-design-vue';
-
+import {reactive,getCurrentInstance} from 'vue';
 export default{
 	components: {
 	    UserOutlined,

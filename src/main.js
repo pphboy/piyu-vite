@@ -16,7 +16,9 @@ import {setupGlobalMethods} from "./utils/globalMethod";
 
 const Vue = createApp(App);
 
-axios.defaults.headers.common['token'] = main.local.get("piyu").token;
+if(main.local.get("piyu")){
+    axios.defaults.headers.common['token'] = main.local.get("piyu").token;
+}
 
 document.title = "皮鱼_开发版";
 
