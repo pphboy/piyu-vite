@@ -7,7 +7,10 @@
 			<a-row>
 				<a-col :span="24" style="text-align: center;">
 					<h2>皮鱼钱包</h2>
-					<h1> {{(9999/100).toFixed(2)}} 元</h1>
+					<h1> {{wallet.balance ? (wallet.balance).toFixed(2) : "无网络"}} 元</h1>
+				</a-col>
+				<a-col style="text-align: center;" :span="24">
+					<h4>总支出: {{wallet.totalRevenue ? (wallet.totalRevenue).toFixed(2) : "无网络"}} 元 | 总收入: {{wallet.totalRevenue ? (wallet.totalRevenue).toFixed(2) : "无网络"}} 元</h4>
 				</a-col>
 				<a-col :span="24">
 					<a-button-group style="margin-left:45.5%;">
@@ -32,12 +35,27 @@
 
 <script lang="ts">
 	import {reactive} from 'vue';
-	
+	import api from '/@/info/ApiUtils';
+	import axios from 'axios';
 	export default{
 		setup(){
 			let data = reactive({
 				visible1: false,
 				visible2: false,
+				wallet:{
+					balance:null,
+					totalExpenditure:null,
+					totalRevenue:null,
+				}
+			});
+
+			axios.post(api.API_WALLET_GET).then(res=>{
+				console.log(res);
+				if(res.data.status){
+					data.wallet = res.data.data;
+				}
+			}).catch(e=>{
+				console.log(e);
 			});
 			
 			return data;

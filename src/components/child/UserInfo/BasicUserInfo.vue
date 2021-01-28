@@ -76,13 +76,16 @@
 	      	birthDate:null, // 生日
 	      	headImage:null, // 头像
 	      	address:null, // 居住地
-	      }
+	      },
+	      userc:null, //判断是否做出更改
 			});
 
 			axois.get(api.API_USER_INFO).then(res=>{
 				// console.log(res);
 				if(res.data.status){
 					data.user = res.data.data;
+					// 复制一个成一个新的对象，而不是赋值一个新的地址
+					data.userc = Object.assign({},data.user);
 				}
 			}).catch(e=>{
 				this.$message.error("网络出错，请联系管理员");
@@ -94,6 +97,7 @@
 	
 		methods:{
 			saveUserInfo(){
+
 				var vm = this;
 				let ok = false;
 				/*判断是空全部为空*/
@@ -109,6 +113,13 @@
 					 this.$message.warning("您填点东西再提交吧 ~");
 					 return;
 				}
+				// console.log(JSON.stringify(this.user));
+				// console.log(JSON.stringify(this.userc));
+				if(JSON.stringify(this.user) == JSON.stringify(this.userc)){
+					this.$message.warning("请改点东西再提交吧 ~");
+					return;
+				}
+
 				axois.post(this.$api.API_USER_INFO,vm.user).then(res=>{
 					if(res.data.status){
 						this.$message.success("更新用户数据成功");

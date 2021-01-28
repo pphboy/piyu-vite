@@ -7,5 +7,7 @@ export default {
 	API_UPLOAD_FILE:v1+"file/upload", // 文件上传
     API_PIPRODUCT_SEND:v1+"product/send",  // 发布皮物
 
-    API_USER_INFO:v1+"user/info" // POST设置用户信息,GET获取用户信息
+    API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
+
+    API_WALLET_GET:v1+"wallet/get" // 获取当铺用户的钱包
 };
