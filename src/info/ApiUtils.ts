@@ -3,7 +3,9 @@ const v1 = "http://localhost:8081/";
 export default {
   API_USER_REGISTER: v1 + "user/register",
 	API_USER_LOGIN: v1 + "login",
-    API_PIPRODUCT_CLASS_ALL:v1+"class/all",
-	API_UPLOAD_FILE:v1+"file/upload",
-    API_PIPRODUCT_SEND:v1+"product/send",
+    API_PIPRODUCT_CLASS_ALL:v1+"class/all", //获致所有皮物分类
+	API_UPLOAD_FILE:v1+"file/upload", // 文件上传
+    API_PIPRODUCT_SEND:v1+"product/send",  // 发布皮物
+
+    API_USER_INFO:v1+"user/info" // POST设置用户信息,GET获取用户信息
 };
