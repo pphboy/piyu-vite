@@ -4,7 +4,7 @@
 		<a-row>
 			<a-col  :span="24">
 				<h3>{{priceCom?"皮物":"帖子"}}标题</h3>
-				<a-input class="titleInput" v-model:value="title" size="large" placeholder="请输入皮物标题" />
+				<a-input class="titleInput" v-model:value="product.title" size="large" placeholder="请输入皮物标题" />
 				<br><br>
 			</a-col>
 			<!-- 类型 -->
@@ -23,14 +23,14 @@
 			<!-- 价格 -->
 			<a-col v-if="priceCom" :span="24">
 						<h3>皮物价格</h3>
-				    <a-input-number precision="2" v-model:value="price" size="large" :min="0.01" :max="999999"  />
+				    <a-input-number precision="2" v-model:value="product.price" size="large" :min="0.01" :max="999999"  />
 						<span style="margin-left:10px;">金额范围 0.01 ~ 999999 元</span>
 						<MoneyCollectOutlined style="font-size: 25px;margin:5px 0 0 5px;" />
 				<br><br>
 			</a-col>
 			<a-col v-if="priceCom" :span="24">
 						<h3>皮物运费</h3>
-				    <a-input-number precision="2" v-model:value="freight" size="large" :min="0.01" :max="999999"  />
+				    <a-input-number precision="2" v-model:value="product.freight" size="large" :min="0.01" :max="999999"  />
 						<span style="margin-left:10px;">金额范围 0.01 ~ 999999 元</span>
 						<MoneyCollectOutlined style="font-size: 25px;margin:5px 0 0 5px;" />
 				<br><br>
@@ -38,8 +38,8 @@
 			<!-- 分类 -->
 			<a-col :span="24">
 				<h3>{{priceCom?"皮物":"帖子"}}分类</h3>
-				<a-radio-group v-model:value="checkClassId" size="large">
-					<a-radio-button  v-for="c in articleClassArray" :key="c.id" :value="c.id.toString()">
+				<a-radio-group v-model:value="product.classId" size="large">
+					<a-radio-button  v-for="c in articleClassArray" :key="c.id" :value="c.id">
 						{{c.className}}
 					</a-radio-button>
 				</a-radio-group>
@@ -48,7 +48,7 @@
 			<!-- 地址 -->
 			<a-col v-if="priceCom" :span="24">
 				<h3>皮物地址</h3>
-				<a-input class="titleInput" v-model:value="address" size="large" placeholder="请填写发货地址" />
+				<a-input class="titleInput" v-model:value="product.address" size="large" placeholder="请填写发货地址" />
 				<br><br>
 			</a-col>
 			<a-col :span="24">
@@ -71,19 +71,22 @@
 	import {message} from 'ant-design-vue';
 	import {MoneyCollectOutlined} from '@ant-design/icons-vue';
 	import '../css/ReleaseProduct.css';
-	import {ref,reactive} from 'vue';
+	import {ref,reactive,getCurrentInstance} from 'vue';
 	import Vditor from 'vditor';
 	export default {
 		name:"ReleaseProduct",
 		setup(){
+			const ctx = getCurrentInstance();
 			var articleClassArray = reactive({
 				priceCom:true, // 皮物类型状态
-				title:null, // 皮物标题
-				price:null, // 皮物价格
-				checkClassId:null,  // 选中的皮物分类
-				address:null, // 皮物地址
+				product:{
+					title:null, // 皮物标题
+					price:null, // 皮物价格
+					classId:null,  // 选中的皮物分类
+					address:null, // 皮物地址
+					freight:null, //运费
+				},
 				vditor:null,  // 皮物介绍的编辑器实例
-				freight:null, //运费
 				articleClassArray:[
 					{
 						id:1,
@@ -100,6 +103,7 @@
 				]
 			});
 			
+
 			return articleClassArray;
 		},
 		watch:{
@@ -112,6 +116,11 @@
 			MoneyCollectOutlined
 	  },
 	  mounted () {
+	  	this.$notification['warning']({
+        message: '编辑中的请不要刷新界面',
+        description:
+          '无论是新建或编辑，的时候，如果您刷新了界面，则数据就会消失，且无法找回 😈',
+      });
 	  	var vm = this;
 			this.vditor = new Vditor('vditor', {
 				height: 360,
@@ -184,8 +193,26 @@
 						],
 					}],
 				})
-			console.log(main.local.get("piyu"));
       this.getPiProductClass();
+      var pid = this.$route.params['pid'];
+			if(pid){
+				/*请求数据*/
+				axios.post(this.$api.API_PIPRODUCT_MANAGER_GET,{
+					id:pid
+				}).then(res=>{
+					console.log(res);
+					if(res.data.status){
+						vm.copyProduct = JSON.stringify(res.data.data);
+						vm.product = res.data.data;
+						vm.vditor.setValue(vm.product.content);
+					}else{
+						this.$message.error(res.data.msg);
+					}
+				}).catch(e=>{
+					this.$message.error("网络错误");
+					console.log(e);
+				})
+			}
 		},
 	  data() {
 	    return {
@@ -198,7 +225,7 @@
        */
       getPiProductClass(){
         axios.post(this.$api.API_PIPRODUCT_CLASS_ALL).then(data=>{
-          console.log(data);
+          // console.log(data);
           if(data.data){
             this.articleClassArray = data.data.data;
           }
@@ -207,25 +234,25 @@
         });
       },
 	    send(){
-				if(!this.title){
+				if(!this.product.title){
 					message.error('请填写文章标题');
 					return;
 				}
 				
-				if(this.priceCom){
-					if(!this.price){
+				if(this.product.priceCom){
+					if(!this.product.price){
 						message.error('请填写皮物金额');
 						return;
 					}
-					if(!this.freight){
+					if(!this.product.freight){
 						message.error('请填写皮物运费');
 						return;
 					}
-					if(!this.checkClassId){
+					if(!this.product.classId){
 						message.error('请选择皮物分类');
 						return;
 					}
-					if(!this.address){
+					if(!this.product.address){
 						message.error('请填写皮物地址');
 						return;
 					}
@@ -245,7 +272,7 @@
 						}
 					}
 				}else{
-					if(!this.checkClassId){
+					if(!this.product.classId){
 						message.error('请选择帖子分类');
 						return;
 					}
@@ -259,19 +286,22 @@
 						}
 					}
 				}
+				this.product.content = this.vditor.getValue();
 
-				axios.post(this.$api.API_PIPRODUCT_SEND,{
-					title:this.title,
-					price:this.price,
-					classId:this.checkClassId,
-					address:this.address,
-					content:this.vditor.getValue(),
-					freight:this.freight,					
-				}).then(res=>{
+				if(JSON.stringify(this.product) == this.copyProduct){
+					console.log(JSON.stringify(this.product));
+					console.log(this.copyProduct);
+					message.warning('请做出内容修改再提交');
+					return;
+				}
+
+				axios.post(this.$api.API_PIPRODUCT_SEND,this.product).then(res=>{
 					// console.log(res);
 					if(res.data.status){
-						message.success("发布皮物成功");
+						message.success(res.data.msg);
 						this.reset();
+					}else{
+						message.error(res.data.msg);
 					}
 				}).catch(e=>{
 					console.log(e);
@@ -279,12 +309,14 @@
 				});
 			},
 			reset(){
-				this.title = null;
-				this.price = null;
-				this.checkClassId = null;
-				this.address = null;
+				this.product = {
+					title:null, // 皮物标题
+					price:null, // 皮物价格
+					classId:null,  // 选中的皮物分类
+					address:null, // 皮物地址
+					freight:null, //运费 
+				};
 				this.vditor.setValue("");
-				this.freight = null;
 			}
 	  },
 	};

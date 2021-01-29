@@ -59,6 +59,7 @@ import {
 	ProjectOutlined
 } from '@ant-design/icons-vue';
 import main from '/@/components/main';
+import axios from 'axios';
 import { message } from 'ant-design-vue';
 import {reactive,getCurrentInstance} from 'vue';
 export default{
@@ -83,6 +84,7 @@ export default{
 			message.success("退出登录成功");
 			main.local.remove("piyu");
 			this.$store.state.login = false;
+			axios.defaults.headers.common['token'] = null;
 			console.log("退出登录");
 		}
 	}

@@ -92,7 +92,6 @@ export default {
 			this.$router.push({name:"Index"});
 			message.success(`您已是登录状态无需再次登录`,1);
 		}
-
 	},
   methods: {
     handleFinish(values) {
@@ -105,6 +104,7 @@ export default {
 				let res = data.data;
 				if(res.status){
 					console.log(data.data);
+          axios.defaults.headers.common['token'] = res.data.token;
 					main.local.set("piyu",res.data);
 					message.success(`${res.data.username},欢迎回来`);
           this.$store.state.login = true;
