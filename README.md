@@ -20,10 +20,17 @@
 
 #### 安装教程
 
-1.  在Local Storage 内添加 一对 piyu:123123 即可正常看其它界面效果
+1.  在Local Storage 内添加 一对 piyu:123123 即可正常看其它界面效果 【目前已失效】
+    
     * ![1611570559026](README.assets/1611570559026.png)
-2.  xxxx
-3.  xxxx
+    
+2. 现在有效的是添加 【目前有效】
+
+   * ```js
+     piyu:{"headImage":"http://localhost:81/img/2021-01-28/20210128163815295598afdd6d49ff905bf7cb8bdc3595.jpg","username":"pipihao","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTI0NDIzNzcsInVzZXJJZCI6IjEwMDA2IiwidXNlcm5hbWUiOiJwaXBpaGFvIn0.28t7Qw72EmaRzoT-tdgkzXKP1Vl1nckJD-ZaChdrJQ8"}
+     ```
+
+3. xxxx
 
 #### 使用说明
 

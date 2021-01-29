@@ -34,7 +34,9 @@
 
 <script lang="ts">
 	import { SettingOutlined, EditOutlined, EllipsisOutlined } from '@ant-design/icons-vue';
-	import {reactive} from 'vue';
+	import {reactive,getCurrentInstance} from 'vue';
+	import axios from 'axios';
+	import api from '/@/info/ApiUtils.ts';
 	export default {
 	  components: {
 	    SettingOutlined,
@@ -42,9 +44,13 @@
 	    EllipsisOutlined,
 	  },
 		setup(){
+			// const {ctx} = getCurrentInstance();
 			let data = reactive({
 				
 			});
+
+			// axios.
+
 			return data;
 		},
 		methods:{

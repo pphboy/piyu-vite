@@ -237,6 +237,12 @@
 							message.error('皮物描述字符长度必须大于50');
 							return;
 						}
+
+						var reg = /\[.*\]\((.*)\)/gi;
+						if(!reg.test(this.vditor.getValue())){
+							message.warning("皮物必须上传至少一张图片");
+							return;
+						}
 					}
 				}else{
 					if(!this.checkClassId){
