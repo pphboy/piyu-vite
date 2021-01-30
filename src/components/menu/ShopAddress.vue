@@ -55,7 +55,7 @@
 						    <template #renderItem="{ item, index }">
 						      <a-list-item>
 										<template #actions>
-											<label>默认: <input name="address" @click="setDefault(index)" :checked="item.isDefault" type="radio"></label>
+											<label>默认: <input name="address" @click="setDefault(index)" :checked="item.default" type="radio"></label>
 											<a @click="edit(index)">edit</a>
 											<a @click="del(index)">delete</a>
 										</template>
@@ -80,6 +80,8 @@
 	import {reactive} from 'vue';
 	import obj from './address.js';
 	import { message } from 'ant-design-vue';
+	import axios from 'axios';
+	import api from '/@/info/ApiUtils.ts';
 
 
 	export default{
@@ -97,7 +99,7 @@
 					}, // 当前编辑的对象
 					addValue:null,
 					addressList:[
-					  {
+					  /*{
 					  	id:1,
 							province:"山西省", // 省级 int
 							city:"阳泉市", // 市级 int 
@@ -126,10 +128,23 @@
 					    isDefault:false, //是否为默认
 					    name:"霖",
 					    phone:"19999999999",
-					  }],
+					  }*/],
 						// value: ['湖南省', '衡阳市','衡阳县'], // 地址
 						options:obj.arr, // 这个是城市的列表
 				});
+
+				axios.get(api.API_ADDRESS).then(res=>{
+					// console.log(res);
+					if(res.data.status){
+						data.addressList = res.data.data;
+					}else{
+						message.error(res.data.status);
+					}
+				}).catch(e=>{
+					console.log(e);
+					message.error("网络错误，请联系管理员");
+				});
+
 				return data;
 		},
 		watch:{
@@ -168,8 +183,23 @@
 			 * 设置默认
 			 */
 			setDefault(index){
-				message.success(`设置 [${this.addressList[index].name}] 为默认收货人`,1);
+				if(this.addressList[index].default){
+					return;
+				}
 				/* 把id提示至服务器*/
+				axios.post(api.API_ADDRESS,{
+					id:this.addressList[index].id
+				}).then(res=>{
+					if(res.data.status){
+							this.addressList[index].default=true;
+							message.success(`设置 [${this.addressList[index].name}] 为默认收货人`,1);
+					}else{
+						message.error(res.data.msg);
+					}
+				}).catch(e=>{
+					console.log(e);
+					message.error("网络错误，请联系管理员");
+				})
 				console.log(this.addressList[index].id);
 			},
 			/**
@@ -197,10 +227,23 @@
 				/*
 					此处	将数据发送到服务器		
 				 */
-				console.log(vm.addressList[index]);
+				axios.delete(api.API_ADDRESS,{
+					data:{
+						id:vm.addressList[index].id
+					}
+				}).then(res=>{
+					if(res.data.status){
+						// console.log(vm.addressList[index]);
+						message.success(`删除收货人[${vm.addressList[index].name}]成功`);	
+						vm.addressList.splice(index,1);
+					}else{
+						message.error();
+					}
+				}).catch(e=>{
+					console.log(e);
+					message.error("网络错误，请联系管理员");
+				});
 
-				message.success(`删除收货人[${vm.addressList[index].name}]成功`);				
-				vm.addressList.splice(index,1);
 
 			},
 			/**
@@ -252,17 +295,26 @@
 				/*编辑的对象会有id，在后端通过id判断是编辑还是新增*/
 				if(vm.editIndex != null){
 					/*编辑*/
-					message.success("编辑收货人保存成功");
-
 					vm.editIndex = null;
 				}else{
 					/*新增*/
-					message.success("新增收货人成功");
 					console.log(vm.address);
 					vm.addressList.push(vm.address);
 				}
 				
 				/* 此处应是提交至服务器 */
+				axios.put(api.API_ADDRESS,vm.address).then(res=>{
+					console.log(res);
+					if(res.data.status){
+						message.success(res.data.msg);
+					}else{
+						message.error(res.data.msg);
+					}
+				}).catch(e=>{
+					message.error("网络错误，请联系管理员");
+					console.log(e);
+				});
+				/*重置*/
 				vm.clear();
 			}
 		}

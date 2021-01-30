@@ -19,6 +19,10 @@ export default {
      */
     API_PIPRODUCT_MANAGER_DOWN:v1+"product/down", 
 
+    /**
+     * put 添加,get 获取,post 设置默认,delete 删除
+     */
+    API_ADDRESS:v1+"address",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 
