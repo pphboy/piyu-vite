@@ -13,9 +13,19 @@
 
 使用vite+Vue3 + typescript
 
+#### 进度
+
+* 已完成皮物皮帖
+
 #### 效果图
 
-<img src="README.assets/1611570358798.png" alt="1611570358798" style="zoom: 25%;" />
+<img src="README.assets/1611570358798.png" alt="1611570358798" style="zoom:25%;" />
+
+<img src="README.assets/1611993962368.png" alt="1611993962368" style="zoom:25%;" />
+
+<img src="README.assets/1611994005370.png" alt="1611994005370" style="zoom: 25%;" />
+
+<img src="README.assets/1611994058245.png" alt="1611994058245" style="zoom:25%;" />
 
 
 #### 安装教程
