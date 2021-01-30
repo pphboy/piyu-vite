@@ -13,7 +13,12 @@ export default {
     /**
      * POST协议
      */
-    API_PIPRODUCT_MANAGER_GET:v1+"product/get", 
+    API_PIPRODUCT_MANAGER_GET:v1+"product/get",
+    /**
+     * POST：下架皮物
+     */
+    API_PIPRODUCT_MANAGER_DOWN:v1+"product/down", 
+
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 

@@ -10,7 +10,7 @@
 			<!-- 类型 -->
 			<a-col :span="24">
 				<h3>皮物类型</h3>
-				<a-radio-group default-value="a" @change="priceCom = !priceCom" size="large">
+				<a-radio-group default-value="a" v-model:value="priceCom" size="large">
 					<a-radio-button value="a">
 						皮物
 					</a-radio-button>
@@ -21,14 +21,14 @@
 				<br><br>
 			</a-col>
 			<!-- 价格 -->
-			<a-col v-if="priceCom" :span="24">
+			<a-col v-if="priceCom == 'a'" :span="24">
 						<h3>皮物价格</h3>
 				    <a-input-number precision="2" v-model:value="product.price" size="large" :min="0.01" :max="999999"  />
 						<span style="margin-left:10px;">金额范围 0.01 ~ 999999 元</span>
 						<MoneyCollectOutlined style="font-size: 25px;margin:5px 0 0 5px;" />
 				<br><br>
 			</a-col>
-			<a-col v-if="priceCom" :span="24">
+			<a-col v-if="priceCom == 'a'" :span="24">
 						<h3>皮物运费</h3>
 				    <a-input-number precision="2" v-model:value="product.freight" size="large" :min="0.01" :max="999999"  />
 						<span style="margin-left:10px;">金额范围 0.01 ~ 999999 元</span>
@@ -46,7 +46,7 @@
 					<br><br>
 			</a-col>
 			<!-- 地址 -->
-			<a-col v-if="priceCom" :span="24">
+			<a-col v-if="priceCom == 'a'" :span="24">
 				<h3>皮物地址</h3>
 				<a-input class="titleInput" v-model:value="product.address" size="large" placeholder="请填写发货地址" />
 				<br><br>
@@ -78,7 +78,7 @@
 		setup(){
 			const ctx = getCurrentInstance();
 			var articleClassArray = reactive({
-				priceCom:true, // 皮物类型状态
+				priceCom:'a', // 皮物类型状态
 				product:{
 					title:null, // 皮物标题
 					price:null, // 皮物价格
@@ -192,27 +192,36 @@
 							'help',
 						],
 					}],
+					after(){
+						var pid = vm.$route.params['pid'];
+						if(pid){
+							/*请求数据*/
+							axios.post(vm.$api.API_PIPRODUCT_MANAGER_GET,{
+								id:pid
+							}).then(res=>{
+								console.log(res);
+								if(res.data.status){
+									vm.copyProduct = JSON.stringify(res.data.data);
+									vm.product = res.data.data;
+									vm.vditor.setValue(vm.product.content);
+									/*如果有下架或已售的状态，则删除id，让其变成新增皮物*/
+									if(vm.$route.params['down']){
+										delete vm.product.id;
+									}
+									if(vm.$route.params['article']){
+										vm.priceCom = 'b';
+									}
+								}else{
+									vm.$message.error(res.data.msg);
+								}
+							}).catch(e=>{
+								vm.$message.error("网络错误");
+								console.log(e);
+							})
+						}
+					}
 				})
       this.getPiProductClass();
-      var pid = this.$route.params['pid'];
-			if(pid){
-				/*请求数据*/
-				axios.post(this.$api.API_PIPRODUCT_MANAGER_GET,{
-					id:pid
-				}).then(res=>{
-					console.log(res);
-					if(res.data.status){
-						vm.copyProduct = JSON.stringify(res.data.data);
-						vm.product = res.data.data;
-						vm.vditor.setValue(vm.product.content);
-					}else{
-						this.$message.error(res.data.msg);
-					}
-				}).catch(e=>{
-					this.$message.error("网络错误");
-					console.log(e);
-				})
-			}
 		},
 	  data() {
 	    return {
@@ -280,8 +289,8 @@
 						message.error('请填写帖子内容');
 						return;
 					}else{
-						if(this.vditor.getValue().length < 50){
-							message.error('帖子内容字符长度必须大于50');
+						if(this.vditor.getValue().length < 15){
+							message.error('帖子内容字符长度必须大于15');
 							return;
 						}
 					}

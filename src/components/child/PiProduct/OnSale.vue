@@ -23,7 +23,7 @@
 					
 					<a-popover placement="bottom">
 						<template #content>
-							<a >下架皮物</a>
+							<a @click="down(item.id)" >下架皮物</a>
 						</template>
 						<ellipsis-outlined key="ellipsis" />
 					</a-popover>
@@ -35,7 +35,7 @@
 		  </a-card>
 	</a-card>
 	<a-card v-else>
-		<h2>没有皮物请点击上方加号添加皮物吧</h2>
+		<h2>没有在售的皮物请点击上方加号添加皮物吧</h2>
 	</a-card>
 	<br>
 	<a-pagination v-if="total>0" v-model:current="pageInfo.page" @change="pageGet" :total="total" show-less-items /><br>
@@ -79,6 +79,22 @@
 			return data;
 		},
 		methods:{
+			down(id){
+				axios.post(api.API_PIPRODUCT_MANAGER_DOWN,{
+					id:id
+				}).then(res=>{
+					// console.log(res);
+					if(res.data.status){
+						this.$message.success("下架成功");
+						this.pageGet();
+					}else{
+						this.$message.error(res.data.msg);
+					}
+				}).catch(e=>{
+					console.log(e);
+					this.$message.error("网络错误请联系管理员");
+				});
+			},
 			/*取内容的第一张图片*/
 			getImage(str){
 				let reg = /\[.*\]\((.*)\)/g;

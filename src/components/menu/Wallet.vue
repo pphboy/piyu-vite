@@ -50,7 +50,7 @@
 			});
 
 			axios.post(api.API_WALLET_GET).then(res=>{
-				console.log(res);
+				// console.log(res);
 				if(res.data.status){
 					data.wallet = res.data.data;
 				}else{
