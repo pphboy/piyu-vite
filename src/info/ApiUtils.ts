@@ -11,9 +11,14 @@ export default {
      */
     API_PIPRODUCT:v1+"product", 
     /**
-     * POST协议
+     * POST协议：获取的是要编辑的皮物
+     * GET：获取一个正常的皮物，是不需要token，这个是展示界面的接口
      */
     API_PIPRODUCT_MANAGER_GET:v1+"product/get",
+    /**
+     * POST 协议 ，获取正常的皮物
+     */
+    API_PIPRODUCT_INDEX:v1+"product/index",
     /**
      * POST：下架皮物
      */

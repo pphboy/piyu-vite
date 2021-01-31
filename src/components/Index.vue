@@ -12,7 +12,7 @@
 					/>
 			</a-layout-header>
 			<a-layout>
-				<a-layout-content>
+				<a-layout-content >
 					 <a-card
 					    style="width:100%"
 					    :tab-list="tabListNoTitle"
@@ -20,7 +20,7 @@
 					    @tabChange="key => onTabChange(key, 'noTitleKey')"
 					  >
 					    <p>
-					      <IndexPro :msg="{cl:noTitleKey,search:search}" />
+					      <IndexPro :msg="noTitleKey?{cl:noTitleKey,search:search}:null" />
 					    </p>
 					    <!-- <template #tabBarExtraContent>
 					      <a href="#">More</a>
@@ -74,13 +74,18 @@
 <script lang="ts">
 import { HomeOutlined } from '@ant-design/icons-vue';
 import { Options, Vue } from "vue-class-component";
-import {ref} from 'vue';
+import {ref,reactive,getCurrentInstance} from 'vue';
 import IndexPro from './child/IndexPro.vue';
+import axios from 'axios';
+import api from '/@/info/ApiUtils.ts';
 
 export default {
-	data() {
-	    return {
-	    	data:[
+	components:{
+		IndexPro
+	},
+	setup(){
+		let data = reactive({
+			data:[
 	    		{
 				    title: '皮物是什么？呢想自己搞个皮物',
 				  },
@@ -95,7 +100,7 @@ export default {
 				  }
 			  ],
 	      tabListNoTitle: [
-	        {
+	        /*{
 	          key: 'article',
 	          tab: '推荐',
 	        },
@@ -106,18 +111,31 @@ export default {
 	        {
 	          key: 'project',
 	          tab: 'project',
-	        },
+	        },*/
 	      ],
-	      noTitleKey: 'article',
+	      noTitleKey: null,
 				value:"",
 				search:""
-	    };
-	  },
-	components:{
-		IndexPro
-	},
-	setup(){
-		
+		});
+		const {ctx} = getCurrentInstance();
+
+		axios.post(api.API_PIPRODUCT_CLASS_ALL).then(res=>{
+			console.log(res);
+			if(res.data.status){
+				for(var c of res.data.data){
+					data.tabListNoTitle.push({
+						key:c.id,
+						tab:c.className
+					});
+					data.noTitleKey = data.tabListNoTitle[0].key;
+				}
+			}
+		}).catch(e=>{
+			console.log(e);
+			ctx.$message.error("网络错误请联系管理员解决问题");
+		});
+
+		return data;
 	},
 	methods:{
 		onSearch(s){
