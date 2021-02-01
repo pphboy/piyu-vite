@@ -67,12 +67,12 @@
 
 <script lang="ts">
   import axios from "axios";
-  import main from '/@/components/main';
 	import {message} from 'ant-design-vue';
 	import {MoneyCollectOutlined} from '@ant-design/icons-vue';
 	import '../css/ReleaseProduct.css';
 	import {ref,reactive,getCurrentInstance} from 'vue';
 	import Vditor from 'vditor';
+	import main from '/@/components/main';
 	export default {
 		name:"ReleaseProduct",
 		setup(){

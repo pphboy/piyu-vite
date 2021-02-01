@@ -20,6 +20,10 @@ export default {
      */
     API_PIPRODUCT_INDEX:v1+"product/index",
     /**
+     * POST: 无参
+     */
+    API_PIPRODUCT_INDEX_ARTICLE:v1+"/product/index/article",
+    /**
      * POST：下架皮物
      */
     API_PIPRODUCT_MANAGER_DOWN:v1+"product/down", 
@@ -40,6 +44,10 @@ export default {
      * POST: 点先或踩
      */
     API_COMMENT_LIKE:v1+"comment/like",
+    /**
+     * GET: 获取首页最新皮论
+     */
+    API_COMMENT_INDEX:v1+"comment/index",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 
