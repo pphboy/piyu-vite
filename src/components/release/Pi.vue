@@ -8,7 +8,7 @@
       <a-page-header :title="product.title" @back="() => $router.go(-1)">
         <template #tags>
           <a-tag color="blue">
-            分类
+            {{product.piProductClass.className}}
           </a-tag>
         </template>
         <template slot="extra">
@@ -49,17 +49,16 @@
       <a-card>
         <div id="md" v-html="md.render(product.content)"></div>
       </a-card>
-      <!-- 发表评论 -->
-      <SendComment :pid="'我是皮物界面的id'" />
-      <!-- 评论组件 -->
-      <Comment :pid="'我是皮物界面的id'" />
+      <div v-if="pid">
+        <!-- 评论组件 -->
+        <Comment :pid="pid" />
+      </div>
     </a-card>
   </a-layout-content>
 </template>
 
 <script lang='ts'>
   import Comment from '/@/components/child/Pi/Comment.vue';
-  import SendComment from '/@/components/child/Pi/SendComment.vue';
   import {reactive,getCurrentInstance,h} from 'vue'; 
   import axios from 'axios';
   import api from '/@/info/ApiUtils.ts';
@@ -67,12 +66,13 @@
 
   export default{
     components:{
-      Comment,SendComment,
+      Comment,
     },
     setup(){
       let data = reactive({
         md: new MarkdownIt(),
         images:[],
+        pid:null,
         product:{
           address: "湖南",
           classId: 2,
@@ -84,7 +84,7 @@
           createDate: "2021-23-29 20:01:19",
           downShelf: false,
           freight: 1,
-          id: "6d0e0264e3674a1c",
+          id:null,
           piProductClass: {id: 2, className: "技术", createDate: "2021-01-26 10:45:47"},
           price: 1,
           soldStatus: false,
@@ -97,13 +97,13 @@
       const {ctx} = getCurrentInstance();
 
       console.log(ctx.$route);
-
       
       return data;
     },
     mounted(){
       var vm = this;
       console.log(vm.$route.params.pid);
+      vm.pid = vm.$route.params.pid;
       /*发送请求皮物*/
       axios.get(api.API_PIPRODUCT_MANAGER_GET,{
         params:{

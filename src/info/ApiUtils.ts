@@ -28,6 +28,18 @@ export default {
      * put 添加,get 获取,post 设置默认,delete 删除
      */
     API_ADDRESS:v1+"address",
+    /**
+     * post 分页获取皮物评论
+     */
+    API_COMMENT_PI:v1+"comment/pi",
+    /**
+     * PUT: 添加评论
+     */
+    API_COMMENT:v1+"comment",
+    /**
+     * POST: 点先或踩
+     */
+    API_COMMENT_LIKE:v1+"comment/like",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 

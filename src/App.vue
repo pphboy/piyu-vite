@@ -22,7 +22,7 @@ export default {
       ctx.$store.state.userInfo.headImage = user.headImage;
       ctx.$store.state.userInfo.username = user.username;
     }else{
-      ctx.$router.push({name:"Index"});
+      // ctx.$router.push({name:"Index"});
     }
   },
 }
