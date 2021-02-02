@@ -2,8 +2,6 @@
 
 `任何发表过 反华、港独、台独言论的人都不得使用本项目，禁止使用本项目的代码。`
 
-
-
 #### 介绍
 
 皮鱼Pc前端
@@ -17,6 +15,9 @@
 
 * 已完成皮物皮帖
 * 已完成皮论，但回复皮论现在写不了
+* 已完成交易记录，足迹
+* 目前就差细节和首页搜索
+* 还有就是皮物皮帖也得做一个搜索
 
 #### 效果图
 
@@ -29,6 +30,10 @@
 <img src="README.assets/1611994005370.png" alt="1611994005370" style="zoom: 25%;" />
 
 <img src="README.assets/1611994058245.png" alt="1611994058245" style="zoom:25%;" />
+
+<img src="README.assets/image-20210202192209798.png" alt="image-20210202192209798" style="zoom:25%;" />
+
+<img src="README.assets/image-20210202192235352.png" alt="image-20210202192235352" style="zoom:25%;" />
 
 
 #### 安装教程
@@ -43,7 +48,7 @@
      piyu:{"headImage":"http://localhost:81/img/2021-01-28/20210128163815295598afdd6d49ff905bf7cb8bdc3595.jpg","username":"pipihao","token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2MTI0NDIzNzcsInVzZXJJZCI6IjEwMDA2IiwidXNlcm5hbWUiOiJwaXBpaGFvIn0.28t7Qw72EmaRzoT-tdgkzXKP1Vl1nckJD-ZaChdrJQ8"}
      ```
 
-3. xxxx
+3. 
 
 #### 使用说明
 
@@ -51,7 +56,5 @@
 
 #### 参与贡献
 
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+1.  Linus 精神支持
+2.  尤雨溪 精神支持
