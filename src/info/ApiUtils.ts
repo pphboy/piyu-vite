@@ -48,6 +48,10 @@ export default {
      * GET: 获取首页最新皮论
      */
     API_COMMENT_INDEX:v1+"comment/index",
+    /**
+     * PUT: 交易
+     */
+    API_TRADE:v1+"trade",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 

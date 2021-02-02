@@ -7,10 +7,10 @@
 			<a-row>
 				<a-col :span="24" style="text-align: center;">
 					<h2>皮鱼钱包</h2>
-					<h1> {{wallet.balance ? (wallet.balance).toFixed(2) : "无网络"}} 元</h1>
+					<h1> {{wallet.balance ? (wallet.balance).toFixed(2) : 0}} 元</h1>
 				</a-col>
 				<a-col style="text-align: center;" :span="24">
-					<h4>总支出: {{wallet.totalRevenue ? (wallet.totalRevenue).toFixed(2) : "无网络"}} 元 | 总收入: {{wallet.totalRevenue ? (wallet.totalRevenue).toFixed(2) : "无网络"}} 元</h4>
+					<h4>总支出: {{wallet.totalExpenditure ? (wallet.totalExpenditure).toFixed(2) : 0}} 元 | 总收入: {{wallet.totalRevenue ? (wallet.totalRevenue).toFixed(2) : 0}} 元</h4>
 				</a-col>
 				<a-col :span="24">
 					<a-button-group style="margin-left:45.5%;">

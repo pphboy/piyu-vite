@@ -160,7 +160,8 @@ export default {
           vm.total = res.data.data.total;
           vm.commentList = res.data.data.list;
         }else{
-          this.$message.error(res.data.msg);
+          console.log(res.data.msg);
+          // this.$message.error(res.data.msg);
         }
       }).catch(e=>{
         console.log(e);

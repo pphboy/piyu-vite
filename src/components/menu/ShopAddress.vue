@@ -138,7 +138,7 @@
 					if(res.data.status){
 						data.addressList = res.data.data;
 					}else{
-						message.error(res.data.status);
+						message.warning(res.data.msg);
 					}
 				}).catch(e=>{
 					console.log(e);
@@ -304,7 +304,7 @@
 				
 				/* 此处应是提交至服务器 */
 				axios.put(api.API_ADDRESS,vm.address).then(res=>{
-					console.log(res);
+					// console.log(res);
 					if(res.data.status){
 						message.success(res.data.msg);
 					}else{
