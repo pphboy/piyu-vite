@@ -50,8 +50,14 @@ export default {
     API_COMMENT_INDEX:v1+"comment/index",
     /**
      * PUT: 交易
+     * POST: 分页获取交易记录
      */
     API_TRADE:v1+"trade",
+    /**
+     * POST: 获取足迹
+     * PUT: 提交足迹
+     */
+    API_FOOTPRINT:v1+"footprint",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 

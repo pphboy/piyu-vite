@@ -32,7 +32,7 @@
             <!-- 已售 -->
             <a-button v-if="product.tradeStatus" style="float:right;" type="danger">已售</a-button>
             <!-- 未售 -->
-            <a-button v-if="$store.state.login" style="float:right;" type="dashed" @click="showModal">购买</a-button>
+            <a-button v-if="$store.state.login && !product.tradeStatus " style="float:right;" type="dashed" @click="showModal">购买</a-button>
             <!-- 未登录 -->
             <a-tag v-if="!$store.state.login" color="red" style="float:right;">登录后即可购买</a-tag>
           </a-col>
@@ -114,6 +114,7 @@
       });
       const {ctx} = getCurrentInstance();
 
+
       console.log(ctx.$route);
       
       return data;
@@ -134,13 +135,31 @@
         if(res.data.status){
           this.product = res.data.data;
           document.title = `${this.product.title}-皮鱼`;
+
+          /*判断是否登录*/
+          if(vm.$store.state.login){
+            /*加入足迹*/
+            axios.put(api.API_FOOTPRINT,{
+              piProductId:vm.product.id,
+            }).then(res=>{
+              if(res.data.status){
+                // console.log(res.data.msg);
+              }else{
+                console.log(res.data.msg);
+              }
+            }).catch(e=>{
+              console.log(e);
+              vm.$message.error("网络错误，请联系管理员");
+            });
+          }
+         
         }else{
           this.$message.error(res.data.msg);
           this.$router.push("/");
         }
       }).catch(e=>{
         console.log(e);
-        this.$message.error("网络错误");
+        this.$message.error("网络错误，请联系管理员");
       });
     },
     methods:{

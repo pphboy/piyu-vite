@@ -80,7 +80,7 @@
 		methods:{
 			/*取内容的第一张图片*/
 			getImage(str){
-				let reg = /\[.*\]\((.*)\)/g;
+				let reg = /!\[.*\]\((.*)\)/g;
 				if(!str.match(reg)){
 					return "https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png";
 				}
