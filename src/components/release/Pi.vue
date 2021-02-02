@@ -32,10 +32,10 @@
             <!-- 已售 -->
             <a-button v-if="product.tradeStatus" style="float:right;" type="danger">已售</a-button>
             <!-- 未售 -->
-            <a-button v-if="$store.state.login && !product.tradeStatus" style="float:right;" type="dashed" @click="showModal">购买</a-button>
+            <a-button v-if="$store.state.login" style="float:right;" type="dashed" @click="showModal">购买</a-button>
             <!-- 未登录 -->
             <a-tag v-if="!$store.state.login" color="red" style="float:right;">登录后即可购买</a-tag>
-           </a-col>
+          </a-col>
         </a-row>
         <a-row v-if="product.address" type="flex" style="margin-top:13px;">
             <a-statistic title="价格" prefix="￥" :value="product.price.toFixed(2)" />
@@ -60,7 +60,7 @@
       </div>
     </a-card>
   </a-layout-content>
-  <a-modal v-model:visible="visible" :title="`购买皮物: ${product.title}`" cancelText="取消" okText="确认购买" @ok="handleOk" >
+  <a-modal v-if="product.address" v-model:visible="visible" :title="`购买皮物: ${product.title}`" cancelText="取消" okText="确认购买" @ok="handleOk" >
     <h3>选择收货地址</h3>
     <a-select label-in-value v-model:value="checkContact" style="width: 300px" >
       <a-select-option v-for="(c,index) in contactList" :key="index" :value="index">
