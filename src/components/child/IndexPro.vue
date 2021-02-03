@@ -24,6 +24,7 @@
 	export default{
 		props: {
 		  msg: String,
+		  search:String,
 		},
 		setup(){
 			const {ctx} = getCurrentInstance();
@@ -43,6 +44,7 @@
 			 		page:this.page,
 			 		size:this.size,
 				 	classId:this.msg.cl,
+				 	keywords:this.search,
 			 	}).then(res=>{
 			 		console.log(res);
 			 		if(res.data.status){
@@ -87,10 +89,10 @@
 				this.reset();
 			 	this.pageChange();
 			}
-	  },created() {
-	    // console.log(1);
-	    this.pageChange();
-		}
+	  },
+	  created(){
+			this.pageChange();
+	  }
 	}
 </script>
 

@@ -5,7 +5,7 @@
 				 <a-input-search
 					 class="search"
 					 v-model:value="value"
-						placeholder="input search text"
+						placeholder="输入想要搜索的内容"
 						enter-button="Search"
 						size="large"
 						@search="onSearch"
@@ -21,7 +21,7 @@
 					    @tabChange="key => onTabChange(key, 'noTitleKey')"
 					  >
 					    <p>
-					      <IndexPro :msg="noTitleKey?{cl:noTitleKey,search:search}:null" />
+					      <IndexPro :search="search" :msg="noTitleKey?{cl:noTitleKey}:null" />
 					    </p>
 					    <!-- <template #tabBarExtraContent>
 					      <a href="#">More</a>
@@ -149,7 +149,6 @@ export default {
 			console.log(e);
 			ctx.$message.error("网络错误请联系管理员解决问题");
 		});
-
 		return data;
 	},
 	methods:{
@@ -158,6 +157,8 @@ export default {
 			this.search = this.value;
 		},
 		onTabChange(key, type) {
+			this.value = null;
+			this.search= null;
 			console.log(key, type);
 			this[type] = key;
 		},
