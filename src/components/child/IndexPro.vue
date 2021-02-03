@@ -83,11 +83,13 @@
 		},
 	  watch:{
 			msg(s){
+				console.log(s);
 				this.reset();
 			 	this.pageChange();
 			}
 	  },created() {
 	    // console.log(1);
+	    this.pageChange();
 		}
 	}
 </script>

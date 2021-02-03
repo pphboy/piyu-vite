@@ -12,7 +12,8 @@
 					/>
 			</a-layout-header>
 			<a-layout>
-				<a-layout-content >
+				<a-layout-content v-if="tabListNoTitle.length > 0">
+					<!-- {{noTitleKey}} -->
 					 <a-card
 					    style="width:100%"
 					    :tab-list="tabListNoTitle"
@@ -84,20 +85,6 @@ export default {
 	},
 	setup(){
 		let data = reactive({
-			data:[
-	    		{
-				    title: '皮物是什么？呢想自己搞个皮物',
-				  },
-				  {
-				    title: 'Ant Design Title 2',
-				  },
-				  {
-				    title: 'Ant Design Title 3',
-				  },
-				  {
-				    title: 'Ant Design Title 4',
-				  }
-			  ],
 			  articleList:[],
 			 	commentList:[],
 	      tabListNoTitle: [
@@ -130,7 +117,6 @@ export default {
 						tab:c.className
 					});
 				}
-				
 				data.noTitleKey = data.tabListNoTitle[0].key;
 			}
 		}).catch(e=>{
