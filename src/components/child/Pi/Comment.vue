@@ -1,6 +1,5 @@
 <template>
 <div>
-  
   <a-row>
     <a-col :span="24">
       <br>
@@ -49,9 +48,34 @@
           {{ c.rubbishNumber?c.rubbishNumber:0 }}
         </span>
       </span>
-      <!-- 回复先不做 -->
-      <!-- <span key="comment-basic-reply-to">回复</span> -->
+      <span @click="showModal(c)" key="comment-basic-reply-to">回复</span>
     </template>
+     <a-card style="padding:0;margin:0;" v-if="c.comments.length > 0">
+        <a-comment v-for="(c,ci) in (more == c.id ?c.comments:c.comments.slice(0, 3))" :key="ci"  >
+          <template #actions>
+            <span @click="showModal(c,true)" key="comment-basic-reply-to">回复</span>
+          </template>
+          <template #author><a>{{c.user.username}}:{{c.id}}</a></template>
+          <template #avatar>
+            <a-avatar
+              :src="c.user.headImage?c.user.headImage:'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'"
+              alt="Han Solo"
+            />
+          </template>
+          <template #content>
+            <p>
+              {{c.content}} <a-tag color="green" v-if="c.cTwoComment != null">回复=>{{c.cTwoComment.id}}:{{`${c.cTwoComment.user.username}:${c.cTwoComment.content.substring(0,10)}...`}}</a-tag>
+            </p>
+          </template>
+          <template #datetime>
+            <a-tooltip :title="moment(c.createDate,'YYYY-MM-DD HH:mm:ss').fromNow()">
+              <span>{{ moment(c.createDate,'YYYY-MM-DD HH:mm:ss').fromNow() }}</span>
+            </a-tooltip>
+          </template>
+        </a-comment>
+        <!-- 大于4条就会出现这个按钮 -->
+        <a-button v-if="c.comments.length > 3" @click="showMore(c)">MORE</a-button>
+      </a-card>
     <template #author><a>{{c.user.username}}</a></template>
     <template #avatar>
       <a-avatar
@@ -71,7 +95,12 @@
     </template>
   </a-comment>
    <a-pagination v-if="total>10" @change="getNext" size="small" :pageSize="pageInfo.size" :total="total" />
+
 </div>
+<a-modal v-if="visible" okText="回复" cancelText="取消回复" v-model:visible="visible" 
+  :title="`回复=> ${copyeComment.content.toString().substring(0,20)}`" @ok="handleOk">
+  <a-textarea v-model:value="toComment.content" placeholder="请输入回复内容" />
+</a-modal>
 </template>
 <script lang="ts">
 import moment from 'moment';
@@ -90,13 +119,21 @@ export default {
   },
   data() {
     return {
+      more:false,
+      copyeComment:{}, //复制 comment
+      toComment:{  //回复评论所使用的对象
+        content:null,
+        cid:null,
+        piId:null,
+        ctwoId:null,
+      },
+      visible:false,
       comment:{
         cid: null,
         content: null,
         createDate: null,
         likeNumber: null,
         rubbishNumber: null,
-        user:main.local.get('piyu'),
       },
       pageInfo:{
         page:1,
@@ -116,6 +153,58 @@ export default {
     this.getPage();
   },
   methods: {
+    /*加载或隐藏评论*/
+    showMore(c){
+      if(this.more == c.id){
+        this.more = null;
+      }else{
+        this.more = c.id;
+      }
+    },
+    /*确认*/
+    handleOk(){
+      if(!this.toComment.content){
+        this.$message.error("请输入回复内容，再回复");
+        return;
+      }
+      console.log(this.toComment);
+      
+      axios.put(api.API_COMMENT,this.toComment).then(res=>{
+        // console.log(res);
+        if(res.data.status){
+          this.$message.success("评论成功");
+          this.getPage();
+          this.toComment = {  //回复评论所使用的对象
+            content:null,
+            cid:null,
+            ctwo_id:null,
+          };
+          this.visible = false;
+        }else{
+          this.$message.error(res.data.msg);
+        }
+      }).catch(e=>{
+        console.log(e);
+        this.$message.error("网络错误，请联系管理员");
+      });
+
+      
+    },
+    showModal(c,status){
+      this.visible = true;
+      console.log(c);
+      this.copyeComment = c;
+      this.toComment.piId = c.piId;
+      console.log("打开");
+      if(status){
+        this.toComment.ctwoId = c.id;
+        this.toComment.cid = c.cid;
+      }else{
+        this.toComment.ctwoId = null;
+        this.toComment.cid = c.id;
+      }
+      
+    },
     reset(){
       this.comment = {
         cid: null,

@@ -3,7 +3,7 @@
  -->
 
 <template>
-  <a-layout-content style="padding:10px;">
+  <a-layout-content v-if="product.maker" style="padding:10px;">
     <a-card style="min-height:587px;margin:0;padding:0;">
       <a-page-header :title="product.title" @back="() => $router.go(-1)">
         <template #tags>
@@ -91,14 +91,14 @@
         md: new MarkdownIt(),
         images:[],
         pid:null,
-        product:{
-          address: "湖南",
+        product:{/*
+          address: "",
           classId: 2,
           maker:{
             headImage:'http://localhost:81/img/2021-01-28/20210128163815295598afdd6d49ff905bf7cb8bdc3595.jpg',
             username:"pipihao",
           },
-          content: "# 湖南帅小伙写代码↵↵![直播.png](http://localhost:81/img/2021-01-29/202101292023056aa4cb85179f4367aae171b3a2d02f03.png)↵",
+          content: "",
           createDate: "2021-23-29 20:01:19",
           downShelf: false,
           freight: 1,
@@ -109,7 +109,7 @@
           status: true,
           title: "随便写点什么东西了",
           tradeStatus: false,
-        },
+        */},
         vditor:null,
       });
       const {ctx} = getCurrentInstance();
@@ -140,7 +140,7 @@
           if(vm.$store.state.login){
             /*加入足迹*/
             axios.put(api.API_FOOTPRINT,{
-              piProductId:vm.product.id,
+              piProductId:res.data.data.id,
             }).then(res=>{
               if(res.data.status){
                 // console.log(res.data.msg);

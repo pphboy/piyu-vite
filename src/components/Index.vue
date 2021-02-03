@@ -29,8 +29,8 @@
 					    </template> -->
 					  </a-card>
 				</a-layout-content>
-				<a-layout-sider>
-					<a-card size="small" title="最新皮帖" >
+				<a-layout-sider >
+					<a-card v-if="articleList.length > 0" size="small" title="最新皮帖" >
 						  <template #extra><a-tag color="blue" @click="$router.push({name:'MorePiArticle'})">更多</a-tag></template>
 							<a-list  item-layout="horizontal" :data-source="articleList">
 							    <template #renderItem="{ item, index }">
@@ -49,7 +49,7 @@
 							    </template>
 							  </a-list>
 					</a-card>
-					<a-card size="small" title="最新皮论" >
+					<a-card v-if="commentList.length > 0" size="small" title="最新皮论" >
 						<a-row  v-for="(c,index) in commentList" :key="index">
 							<!-- 点击头像和 名称的时候应该跳到用户空间 -->
 							<a-col :span="4">
@@ -128,7 +128,7 @@ export default {
 
 		/*获取最新评论*/
 		axios.post(api.API_PIPRODUCT_INDEX_ARTICLE).then(res=>{
-			console.log(res);
+			// console.log(res);
 			if(res.data.status){
 				data.articleList = res.data.data;
 			}else{
@@ -141,7 +141,7 @@ export default {
 
 		/*获取最新的皮论*/
 		axios.get(api.API_COMMENT_INDEX).then(res=>{
-			console.log(res);
+			// console.log(res);
 			if(res.data.status){
 				data.commentList = res.data.data;
 			}else{

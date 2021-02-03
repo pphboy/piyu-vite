@@ -1,5 +1,5 @@
 <template>
-		<a-card :bordered="false" >
+		<a-card  :bordered="false" >
 			<a-card @click="$router.push({name:'Pi',params:{pid:p.id}})" v-for="p in piList" :key="p.id" hoverable style="width: 224px;float:left;margin:3px;">
 				<template #cover>
 					<img alt="example" style="width:100%;height: 200px;object-fit: cover;" :src="getImage(p.content)" />
@@ -46,12 +46,12 @@
 				 	classId:this.msg.cl,
 				 	keywords:this.search,
 			 	}).then(res=>{
-			 		console.log(res);
+			 		// console.log(res);
 			 		if(res.data.status){
 			 			this.piList = res.data.data.list;
 			 			this.total = res.data.data.total;
-			 			console.log(this.total);
-			 			console.log(this.piList);
+			 			// console.log(this.total);
+			 			// console.log(this.piList);
 			 		}else{
 			 			this.$message.warning(res.data.msg);
 			 		}
