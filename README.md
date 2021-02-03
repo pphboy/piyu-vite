@@ -18,6 +18,8 @@
 * 已完成交易记录，足迹
 * 目前就差细节和首页搜索
 * 还有就是皮物皮帖也得做一个搜索
+* 已完成上面需求
+* 目前就差皮物的收藏，点赞，访问次数了
 
 #### 效果图
 
@@ -31,9 +33,23 @@
 
 <img src="README.assets/1611994058245.png" alt="1611994058245" style="zoom:25%;" />
 
+* 交易记录
+
 <img src="README.assets/image-20210202192209798.png" alt="image-20210202192209798" style="zoom:25%;" />
 
+* 足迹
+
 <img src="README.assets/image-20210202192235352.png" alt="image-20210202192235352" style="zoom:25%;" />
+
+* 更多皮帖
+
+<img src="README.assets/image-20210203161453673.png" alt="image-20210203161453673" style="zoom:25%;" />
+
+* 嵌套回复
+
+<img src="README.assets/image-20210203161619922.png" alt="image-20210203161619922" style="zoom:25%;" />
+
+
 
 
 #### 安装教程
