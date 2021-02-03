@@ -20,6 +20,7 @@
 					    :active-tab-key="noTitleKey"
 					    @tabChange="key => onTabChange(key, 'noTitleKey')"
 					  >
+
 					    <p>
 					      <IndexPro :search="search" :msg="noTitleKey?{cl:noTitleKey}:null" />
 					    </p>
@@ -30,6 +31,7 @@
 				</a-layout-content>
 				<a-layout-sider>
 					<a-card size="small" title="最新皮帖" >
+						  <template #extra><a-tag color="blue" @click="$router.push({name:'MorePiArticle'})">更多</a-tag></template>
 							<a-list  item-layout="horizontal" :data-source="articleList">
 							    <template #renderItem="{ item, index }">
 							      <a-list-item >

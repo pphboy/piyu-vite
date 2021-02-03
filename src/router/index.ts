@@ -11,8 +11,15 @@ import ShopAddress from "/@/components/menu/ShopAddress.vue";
 import Trading from "/@/components/menu/Trading.vue";
 import FootPrint from "/@/components/menu/FootPrint.vue";
 import Pi from "/@/components/release/Pi.vue";
+import MorePiArticle from "/@/components/release/MorePiArticle.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/MorePiArticle",
+    name: "MorePiArticle",
+    component: MorePiArticle,
+    meta: {title:'皮帖-皮鱼',keyword:'皮帖-皮鱼',description:'皮帖-皮鱼'},
+  },
   {
     path: "/Pi/:pid",
     name: "Pi",

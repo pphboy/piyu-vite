@@ -127,6 +127,11 @@ export default {
       };
     },
     save(){
+      if(!this.$store.state.login){
+        this.$message.warning("请登录后再评论");
+        this.$router.push({name:"Login"});
+        return;
+      }
       this.comment.piId = this.pid;
       
       /*此处向服务器发送数据*/

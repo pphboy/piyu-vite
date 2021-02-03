@@ -298,8 +298,8 @@
 				this.product.content = this.vditor.getValue();
 
 				if(JSON.stringify(this.product) == this.copyProduct){
-					console.log(JSON.stringify(this.product));
-					console.log(this.copyProduct);
+					// console.log(JSON.stringify(this.product));
+					// console.log(this.copyProduct);
 					message.warning('请做出内容修改再提交');
 					return;
 				}

@@ -1,7 +1,7 @@
 <template>
   <a-row style="margin-top:30px;"
     ><a-col :span="12" :offset="6">
-      <a-card title="登录" style="min-width: 600px;">
+      <a-card title="登录" style="min-width: 600px;min-height:557px;">
         <a-form
           name="custom-validation"
           ref="ruleForm"
