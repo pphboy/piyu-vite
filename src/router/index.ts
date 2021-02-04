@@ -10,10 +10,17 @@ import Wallet from "/@/components/menu/Wallet.vue";
 import ShopAddress from "/@/components/menu/ShopAddress.vue";
 import Trading from "/@/components/menu/Trading.vue";
 import FootPrint from "/@/components/menu/FootPrint.vue";
+import Collect from "/@/components/menu/Collect.vue";
 import Pi from "/@/components/release/Pi.vue";
 import MorePiArticle from "/@/components/release/MorePiArticle.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/Collect",
+    name: "Collect",
+    component:Collect,
+    meta: {title:'我的收藏-皮鱼',keyword:'我的收藏-皮鱼',description:'我的收藏-皮鱼'},
+  },
   {
     path: "/MorePiArticle",
     name: "MorePiArticle",

@@ -72,6 +72,10 @@ export default {
      * POST: 收藏
      */
     API_COLLECT:v1+"collect",
+    /**
+     * POST: 获取用户收藏
+     */
+    API_COLLECT_USER:v1+"collect/user",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 

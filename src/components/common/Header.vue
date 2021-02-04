@@ -30,6 +30,7 @@
 											<a-menu-item @click="$router.push('/Wallet')" key="4"><MoneyCollectOutlined />皮鱼钱包</a-menu-item>
 											<a-menu-item @click="$router.push('/PiProduct')" key="2"><ProfileOutlined />皮物皮帖</a-menu-item>
 											<a-menu-item @click="$router.push('/ShopAddress')" key="2"><SolutionOutlined />收货地址</a-menu-item>
+											<a-menu-item @click="$router.push('/Collect')" key="9"><StarOutlined/>我的收藏</a-menu-item>
 											<a-menu-item @click="$router.push('/Trading')" key="6"><ProjectOutlined />交易记录</a-menu-item>
 											<a-menu-item @click="$router.push('/FootPrint')" key="3"><HistoryOutlined />历史足迹</a-menu-item>
 											<a-menu-item @click="logOut" key="7"><LogoutOutlined />退出登录</a-menu-item>
@@ -56,7 +57,8 @@ import {
 	UngroupOutlined,
 	HistoryOutlined,
 	MoneyCollectOutlined,
-	ProjectOutlined
+	ProjectOutlined,
+	StarOutlined
 } from '@ant-design/icons-vue';
 import main from '/@/components/main';
 import axios from 'axios';
@@ -73,7 +75,7 @@ export default{
 			UngroupOutlined,
 			HistoryOutlined,
 			MoneyCollectOutlined,
-			ProjectOutlined
+			ProjectOutlined,StarOutlined
 	},
 	methods:{
 		getUser(){

@@ -64,6 +64,7 @@
           <a-button @click="collect"  style="margin-left:10px;">
             <template #icon><StarOutlined /></template>收藏({{product.collectNumber?product.collectNumber:0}})
           </a-button>
+          <a-tag v-if="collecting" color='red'>如果需要收藏请刷新界面</a-tag>
         </a-col>
       </a-row>
       <div v-if="pid">
@@ -135,7 +136,7 @@ import {  LikeOutlined ,StarOutlined} from '@ant-design/icons-vue';
     },
     mounted(){
       var vm = this;
-      console.log(vm.$route.params.pid);
+      // console.log(vm.$route.params.pid);
       vm.pid = vm.$route.params.pid;
       /*发送请求皮物*/
       axios.get(api.API_PIPRODUCT_MANAGER_GET,{
@@ -186,7 +187,7 @@ import {  LikeOutlined ,StarOutlined} from '@ant-design/icons-vue';
         axios.post(api.API_COLLECT,{
             piId:vm.product.id,
         }).then(res=>{
-          console.log(res);
+          // console.log(res);
           if(res.data.status){
             if(res.data.data == null){
               this.$message.success(res.data.msg);

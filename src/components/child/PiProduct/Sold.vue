@@ -3,7 +3,7 @@
  -->
 <template>
 	<a-card v-if="total>0" title="已售皮物">
-		<a-card  v-for="item in piproList" :key="item.id" hoverable style="width: 250px;float:left;margin:5px;">
+		<a-card  @click="$router.push({name:'Pi',params:{pid:item.id}})" v-for="item in piproList" :key="item.id" hoverable style="width: 250px;float:left;margin:5px;">
 		    <template #cover>
 		      <img
 						style="width:100%;height:200px;object-fit:cover;"		      	

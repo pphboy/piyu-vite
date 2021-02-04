@@ -11,8 +11,9 @@
               v-model:value="keywords"
               placeholder="搜索已购皮物标题"
               style="width: 400px"
-              @search="keywords?onSearch():null"
+              @search="onSearch()"
             />
+            <!--  @search="keywords?onSearch():null" -->
             <h3 style="display: inline-block;margin-left: 30px;">已交易订单总数: {{total}}</h3> 
             <br><br>
         </a-col>  
