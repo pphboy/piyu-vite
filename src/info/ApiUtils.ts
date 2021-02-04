@@ -64,7 +64,14 @@ export default {
      */
     API_FOOTPRINT:v1+"footprint",
 
-
+    /**
+     * POST: 点赞
+     */
+    API_PILIKE:v1+"like",
+    /**
+     * POST: 收藏
+     */
+    API_COLLECT:v1+"collect",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
 

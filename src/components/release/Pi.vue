@@ -53,7 +53,19 @@
       <!-- 内容 -->
       <a-card>
         <div id="md" v-html="md.render(product.content)"></div>
+          
       </a-card>
+      <a-row v-if="$store.state.login">
+        <a-col>
+          <br>
+          <a-button @click="like" >
+            <template #icon><LikeOutlined /></template>点赞({{product.likeNumber?product.likeNumber:0}})
+          </a-button>
+          <a-button @click="collect"  style="margin-left:10px;">
+            <template #icon><StarOutlined /></template>收藏({{product.collectNumber?product.collectNumber:0}})
+          </a-button>
+        </a-col>
+      </a-row>
       <div v-if="pid">
         <!-- 评论组件 -->
         <Comment :pid="pid" />
@@ -73,6 +85,7 @@
 </template>
 
 <script lang='ts'>
+import {  LikeOutlined ,StarOutlined} from '@ant-design/icons-vue';
   import Comment from '/@/components/child/Pi/Comment.vue';
   import {reactive,getCurrentInstance,h} from 'vue'; 
   import axios from 'axios';
@@ -81,7 +94,7 @@
 
   export default{
     components:{
-      Comment,
+      Comment,LikeOutlined,StarOutlined
     },
     setup(){
       let data = reactive({
@@ -91,6 +104,7 @@
         md: new MarkdownIt(),
         images:[],
         pid:null,
+        collecting:false,
         product:{/*
           address: "",
           classId: 2,
@@ -163,6 +177,58 @@
       });
     },
     methods:{
+      collect(){
+        var vm = this;
+        if(vm.collecting){
+          vm.$message.error("请不要频繁收藏");
+          return;
+        }
+        axios.post(api.API_COLLECT,{
+            piId:vm.product.id,
+        }).then(res=>{
+          console.log(res);
+          if(res.data.status){
+            if(res.data.data == null){
+              this.$message.success(res.data.msg);
+              this.product.collectNumber++;
+              return;
+            }
+            if(res.data.data == true){
+              this.collecting = true;
+              this.$message.warning(res.data.msg);
+              this.product.collectNumber--;
+              return;
+            }else{
+              this.$message.error(res.data.msg);
+            }
+          }else{
+            this.$message.warning(res.data.msg);
+          }
+        }).catch(e=>{
+          console.log(e);
+          this.$message.error("网络错误，请联系管理员");
+        });
+      },
+      /*点赞*/
+      like(){
+        var vm = this;
+        if(vm.product.id){
+          axios.post(api.API_PILIKE,{
+            piId:vm.product.id,
+          }).then(res=>{
+            // console.log(res);
+            if(res.data.status){
+              vm.$message.success(res.data.msg);
+              vm.product.likeNumber ++;
+            }else{
+              vm.$message.error(res.data.msg);
+            }
+          }).catch(e=>{
+            console.log(e);
+            this.$message.error("网络错误，请联系管理员");
+          });
+        }
+      },
       showModal(){
         var vm = this;
         /*金额这种东西在后端判断*/
