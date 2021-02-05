@@ -16,7 +16,10 @@
 								  <template #icon><PlusOutlined title="发表内容" /> </template
 								></a-button>
 								
-								<a-avatar :src="$store.state.userInfo.headImage" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style="margin-bottom:6px;margin-left:5px;" >
+								<a-avatar 
+								title="点击进入个人主页"
+								@click="$router.push({name:'PY',params:{username:$store.state.userInfo.username}})" 
+								:src="$store.state.userInfo.headImage" src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" style="margin-bottom:6px;margin-left:5px;" >
 								</a-avatar>
 								
 								<h4 style="display: inline;margin-left:10px;color:white;">{{$store.state.userInfo.username}}</h4>

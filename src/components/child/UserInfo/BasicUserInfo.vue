@@ -18,6 +18,11 @@
 		  <br><br>
 		</a-col>
 		<a-col :span="18">
+			<h3>昵称</h3>
+			  <a-input maxlength="7" v-model:value="user.nickname" size="large" />
+			<br><br>
+		</a-col>
+		<a-col :span="18">
 			<h3>生日</h3>
 		  <a-date-picker v-model:value="user.birthDate" size="large" />
 			<br><br>
@@ -77,6 +82,7 @@
 	      	birthDate:null, // 生日
 	      	headImage:null, // 头像
 	      	address:null, // 居住地
+	      	nickname:null,//昵称
 	      },
 	      userc:null, //判断是否做出更改
 			});
@@ -102,6 +108,7 @@
 				var vm = this;
 				let ok = false;
 				/*判断是空全部为空*/
+				console.log(vm.user);
 				for(var a in vm.user){
 					if(!vm.user[a]){
 						ok = false;
@@ -114,6 +121,11 @@
 					 this.$message.warning("您填点东西再提交吧 ~");
 					 return;
 				}
+
+				if(!vm.user.nickname){
+				  this.$message.error("昵称不能为空");
+					return null;
+				}				
 				// console.log(JSON.stringify(this.user));
 				// console.log(JSON.stringify(this.userc));
 				if(JSON.stringify(this.user) == JSON.stringify(this.userc)){

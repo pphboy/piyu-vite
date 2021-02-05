@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw,createWebHistory } from "vue-router";
 import Index from "../components/Index.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import Login from "../components/normal/Login.vue";
@@ -12,9 +12,16 @@ import Trading from "/@/components/menu/Trading.vue";
 import FootPrint from "/@/components/menu/FootPrint.vue";
 import Collect from "/@/components/menu/Collect.vue";
 import Pi from "/@/components/release/Pi.vue";
+import PY from "/@/components/release/PY.vue";
 import MorePiArticle from "/@/components/release/MorePiArticle.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/:username",
+    name: "PY",
+    component:PY,
+    meta: {title:'个人主页-皮鱼',keyword:'个人主页-皮鱼',description:'个人主页-皮鱼'},
+  },
   {
     path: "/Collect",
     name: "Collect",

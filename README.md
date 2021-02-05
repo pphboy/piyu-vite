@@ -9,7 +9,9 @@
 #### 软件架构
 软件架构说明
 
-使用vite+Vue3 + typescript
+使用vite+Vue3 + typescript+Ant design vue
+
+**请多多见谅，有问题请提ISSUES**
 
 #### 进度
 
