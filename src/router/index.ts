@@ -3,6 +3,7 @@ import Index from "../components/Index.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 import Login from "../components/normal/Login.vue";
 import Register from "../components/normal/Register.vue";
+import ErrorPage from "../components/normal/ErrorPage.vue";
 import ReleasePage from "../components/release/ReleasePage.vue";
 import UserInfo from "../components/menu/UserInfo.vue";
 import PiProduct from "/@/components/menu/PiProduct.vue";
@@ -13,9 +14,29 @@ import FootPrint from "/@/components/menu/FootPrint.vue";
 import Collect from "/@/components/menu/Collect.vue";
 import Pi from "/@/components/release/Pi.vue";
 import PY from "/@/components/release/PY.vue";
+import Followers from "/@/components/release/Followers.vue";
+import Following from "/@/components/release/Following.vue";
 import MorePiArticle from "/@/components/release/MorePiArticle.vue";
 
 const routes: Array<RouteRecordRaw> = [
+  {
+    path: "/404",
+    name: "error",
+    component:ErrorPage,
+    meta: {title:'404-皮鱼',keyword:'404-皮鱼',description:'404-皮鱼'},
+  },
+  {
+    path: "/:username/following",
+    name: "Following",
+    component:Following,
+    meta: {title:'关注列表-皮鱼',keyword:'关注列表-皮鱼',description:'关注列表-皮鱼'},
+  },
+  {
+    path: "/:username/followers",
+    name: "Followers",
+    component:Followers,
+    meta: {title:'粉丝列表-皮鱼',keyword:'粉丝列表-皮鱼',description:'粉丝列表-皮鱼'},
+  },
   {
     path: "/:username",
     name: "PY",

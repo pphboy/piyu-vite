@@ -1,18 +1,18 @@
 <template>
-  <a-layout-content>
+  <a-layout-content style="min-width: 1280px;">
     <a-row>
       <!-- 左侧 -->
       <!-- 显示用户信息 -->
       <a-col :span="2"></a-col>
-      <a-col :span="4" style="padding:5px;">
-          <a-avatar style="margin-left:60px;margin-top:20px;" src="http://localhost:81/img/2021-02-02/202102020942309fa25c11607d4887a8004b4cbcc74317.jpg" :size="130">
-            <template #icon><UserOutlined /></template>
-          </a-avatar>
-          <br><br>
-          <div style="text-align: center;">
-            <h2 >皮皮豪</h2>
-            <h4 style="padding:0;margin:0;">@pipihao</h4>
-            <p>皮鱼第一个用户，加油陌生人，你也会成为我这样的皮鱼玩家。</p>
+      <a-col v-if="userInfo" :span="4" style="padding:5px;">
+          <div style="text-align: center;margin-top:20px;">
+            <a-avatar  :src="userInfo.headImage" :size="130">
+              <template #icon><UserOutlined /></template>
+            </a-avatar>
+            <br><br>
+            <h2 >{{userInfo.nickname}}</h2>
+            <h4 style="padding:0;margin:0;">@{{userInfo.username}}</h4>
+            <p>{{userInfo.introduction}}</p>
             <div v-if="key == 'piProduct' || key== 'piArticle'" >
               <a-input-search
                 v-model:value="keyword"
@@ -21,11 +21,16 @@
                 @search="onSearch" />
             </div>
           </div>
-          <a-button style="margin-left:60px;"><SettingOutlined />个人设置</a-button>
           <a-row style="text-align: center;">
-            <a-col :span="12"><a><h2 style="margin:0;padding:0;" class="lfont">999</h2>
+            <a-col :span="24">
+              <a-button style="margin-bottom:10px;"><SettingOutlined />个人设置</a-button>
+            </a-col>
+            <a-col :span="24">
+              <a-button @click="sendFollows" style="margin-bottom:10px;">{{following?"已关注":"关注"}}</a-button>
+            </a-col>
+            <a-col :span="12"><a @click="$router.push({name:'Followers',params:{username:username}})"><h2 style="margin:0;padding:0;" class="lfont">{{userInfo.followers}}</h2>
             <font color="black">Followers</font></a></a-col>
-            <a-col :span="12"><a><h2 style="margin:0;padding:0;" class="lfont">999</h2>
+            <a-col :span="12"><a @click="$router.push({name:'Following',params:{username:username}})" ><h2 style="margin:0;padding:0;" class="lfont">{{userInfo.following}}</h2>
             <font color="black">Following</font></a></a-col>
           </a-row>
       </a-col>
@@ -33,7 +38,7 @@
       <a-col :span="16">
            <a-card
               :bordered="false"
-              style="width:100%;min-height: 587px"
+              style="width:100%;min-height: 587px;"
               :tab-list="tabList"
               :active-tab-key="key"
               @tabChange="key => onTabChange(key, 'key')"
@@ -70,6 +75,9 @@
     },
     data(){
       return {
+        userInfo:null,
+        following:false,
+        username:null,
         keyword:null,
         tabList: [
           {
@@ -93,9 +101,50 @@
     },
     beforeCreate(){
       var vm = this;
-      console.log(vm.$route);
+      console.log(vm.$route.params.username);
+      axios.get(api.API_USER_INDEX_INFO,{
+        params:{
+          username:vm.$route.params.username
+        }
+      }).then(res=>{
+        console.log(res);
+        /*如果没有用户信息，则跳转到404界面*/
+        if(res.data.status){
+          vm.userInfo = res.data.data.userInfo;
+          vm.following = res.data.data.following;
+          vm.username = vm.$route.params.username;
+        }else{
+
+        }
+      }).catch(e=>{
+        console.log(e);
+      });
     },
     methods:{
+      sendFollows(){
+        var vm = this;
+        var username = vm.$route.params.username;
+        axios.put(api.API_FOLLOWS,{
+          username:username
+        }).then(res=>{
+          console.log(res);
+          if(res.data.status){
+            vm.$message.success(res.data.msg);
+            vm.following = !vm.following;
+            if(res.data.data){
+              vm.userInfo.followers --;
+            }else{
+              vm.userInfo.followers ++;
+            }
+          }else{
+            vm.$message.error(res.data.msg);
+          }
+        }).catch(e=>{
+          console.log(e);
+          vm.$message.error("网络错误，请联系管理员");
+        });
+
+      },
       onTabChange(key, type) {
         console.log(key, type);
         this[type] = key;

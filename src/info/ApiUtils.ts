@@ -78,6 +78,22 @@ export default {
     API_COLLECT_USER:v1+"collect/user",
 
     API_USER_INFO:v1+"user/info", // POST设置用户信息,GET获取用户信息
+    /**
+     * GET: 获取个人主页用户信息,无参
+     */
+    API_USER_INDEX_INFO:v1+"user/index",
+    /**
+     * PUT: 关注和取消关注
+     */
+    API_FOLLOWS:v1+'follows',
+    /**
+     * PAGE: 参数为pipage，获取用户粉丝列表
+     */
+    API_FOLLOWS_FOLLOWERS:v1+"/follows/followers",
+    /**
+     * PAGE: 参数为pipage，获取用户关注列表
+     */
+    API_FOLLOWS_FOLLOWING:v1+"/follows/following",
 
     API_WALLET_GET:v1+"wallet/get" // 获取当铺用户的钱包
 
