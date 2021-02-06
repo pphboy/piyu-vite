@@ -22,8 +22,8 @@
             </div>
           </div>
           <a-row style="text-align: center;">
-            <a-col :span="24">
-              <a-button style="margin-bottom:10px;"><SettingOutlined />个人设置</a-button>
+            <a-col v-if="$store.state.userInfo.username == username" :span="24">
+              <a-button @click="$router.push({name:'UserInfo'})" style="margin-bottom:10px;"><SettingOutlined />个人设置</a-button>
             </a-col>
             <a-col :span="24">
               <a-button @click="sendFollows" style="margin-bottom:10px;">{{following?"已关注":"关注"}}</a-button>
@@ -65,6 +65,7 @@
   import PiProduct from '/@/components/child/PY/PiProduct.vue';
   import PiArticle from '/@/components/child/PY/PiArticle.vue';
   import PiLog from '/@/components/child/PY/PiLog.vue';
+  import main from '/@/components/main';
   import axios from 'axios';
   import {toRefs,reactive,defineComponent,ref} from 'vue';
   import api from "/@/info/ApiUtils.ts";
@@ -81,6 +82,7 @@
         following:false,
         username:null,
         keyword:null,
+        logUsername:null,//登录的用户
         tabList: [
           {
             key: 'piProduct',  //皮物
@@ -147,7 +149,6 @@
       }).catch(e=>{
         console.log(e);
       });
-      
     },
     methods:{
       sendFollows(){
