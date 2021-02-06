@@ -23,9 +23,9 @@
           </a-button>
         </template>
         <a-row>
-           <a-col :span="18">
+           <a-col   :span="18">
               <!-- a标签存放用户的空间的路径   -->
-              <a style="color:black;">{{product.maker.username}}</a> <a-avatar    :src="product.maker.headImage" />
+              <span @click="$router.push({name:'PY',params:{username:product.maker.username}})"><a style="color:black;">{{product.maker.username}}</a> <a-avatar    :src="product.maker.headImage" /></span>
               {{product.createDate}} · 151 次点击
            </a-col>
           <a-col v-if="product.address" :span="6">

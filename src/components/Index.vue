@@ -42,7 +42,7 @@
 							            <a @click="$router.push({name:'Pi',params:{pid:item.id}})">{{ item.title.substring(0,8) }}...</a>
 							          </template>
 							          <template #avatar>
-							            <a-avatar :src="item.maker.headImage?item.maker.headImage:'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'" />
+							            <a-avatar @click="$router.push({name:'PY',params:{username:item.maker.username}})" :src="item.maker.headImage?item.maker.headImage:'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'" />
 							          </template>
 							        </a-list-item-meta>
 							      </a-list-item>
@@ -53,10 +53,10 @@
 						<a-row  v-for="(c,index) in commentList" :key="index">
 							<!-- 点击头像和 名称的时候应该跳到用户空间 -->
 							<a-col :span="4">
-    						<a-avatar :src="c.user.headImage?c.user.headImage:'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'" />
+    						<a-avatar  @click="$router.push({name:'PY',params:{username:c.user.username}})"  :src="c.user.headImage?c.user.headImage:'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'" />
 							</a-col>
 							<a-col :span="20">
-								<a-tag  color="#108ee9">
+								<a-tag  @click="$router.push({name:'PY',params:{username:c.user.username}})"  color="#108ee9">
 										{{c.user.username}}
 								</a-tag>
 												<br>
