@@ -101,6 +101,31 @@
         key: "piProduct",
       }
     },
+    watch:{
+      "$route.params":function(){
+        var vm = this;
+        if(this.$route.params.username){
+          axios.get(api.API_USER_INDEX_INFO,{
+            params:{
+              username:vm.$route.params.username
+            }
+          }).then(res=>{
+            console.log(res,"加载用户信息");
+            /*如果没有用户信息，则跳转到404界面*/
+            if(res.data.status){
+              vm.userInfo = res.data.data.userInfo;
+              vm.following = res.data.data.following;
+              vm.username = vm.$route.params.username;
+            }else{
+              vm.$message.error(res.data.msg);
+              vm.$router.push({name:'error'});
+            }
+          }).catch(e=>{
+            console.log(e);
+          });
+        }
+      }
+    },
     beforeCreate(){
       var vm = this;
       console.log(vm.$route.params.username);
@@ -116,7 +141,8 @@
           vm.following = res.data.data.following;
           vm.username = vm.$route.params.username;
         }else{
-
+          vm.$message.error(res.data.msg);
+          vm.$router.push({name:'error'});
         }
       }).catch(e=>{
         console.log(e);

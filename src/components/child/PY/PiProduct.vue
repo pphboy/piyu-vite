@@ -56,6 +56,12 @@
       keywords(s){
         console.log(s);
         this.getPage();
+      },
+      username(){
+        var vm = this;
+        if(this.$route.params.username){
+          this.getPage();
+        }
       }
     },
     created(){
