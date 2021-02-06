@@ -2,37 +2,32 @@
   皮志
  -->
 <template>
-  <a-collapse @change="change" v-model:activeKey="activeKey" accordion>
-    <a-collapse-panel class="af" key="1" header="2021年02月04日">
-      <a-list item-layout="vertical" size="large" :data-source="listData">
+  <a-collapse :bordered="false" @change="change" v-model:activeKey="activeKey" accordion>
+    <a-collapse-panel class="af" :key="d.date" v-for="d in listData"  :header="d.date">
+      <a-list v-if="incomeList.length > 0" item-layout="vertical" size="large" :data-source="incomeList">
         <template #renderItem="{ item, index }">
           <a-list-item key="item.title">
             <a-list-item-meta  :description="item.description">
               <template #title >
-                <a :href="item.href">{{ item.title }}</a>
+                 卖了 <a style="color:skyblue;" @click="$router.push({name:'Pi',params:{pid:item.id}})">{{ item.title }}</a>赚{{item.price.toFixed(2)}} ￥
               </template>
             </a-list-item-meta>
-            {{ item.content }}
+            {{ item.createDate}}
           </a-list-item>
         </template>
       </a-list>
-    </a-collapse-panel>
-    <a-collapse-panel class="af" key="2" header="2021年02月04日" :disabled="false">
-      <a-list item-layout="vertical" size="large" :data-source="listData">
+      <a-list v-if="payList.length > 0" item-layout="vertical" size="large" :data-source="payList">
         <template #renderItem="{ item, index }">
           <a-list-item key="item.title">
             <a-list-item-meta  :description="item.description">
               <template #title >
-                <a :href="item.href">{{ '买了xxx 花了多少钱' }}</a>
+                花 {{item.price.toFixed(2)}} ￥ 买了 <a style="color:skyblue;" @click="$router.push({name:'Pi',params:{pid:item.id}})">{{ item.title }}</a>
               </template>
             </a-list-item-meta>
-            {{ item.content }}
+            {{ item.createDate}}
           </a-list-item>
         </template>
       </a-list>
-    </a-collapse-panel>
-    <a-collapse-panel class="af" key="3" header="2021年02月04日">
-      <p>{{ text }}</p>
     </a-collapse-panel>
   </a-collapse>
   
@@ -42,52 +37,65 @@
   import axios from 'axios';
   import api from '/@/info/ApiUtils.ts';
   import {reactive,getCurrentInstance} from 'vue';
-  import { StarOutlined, LikeOutlined, MessageOutlined
-    ,StarOutlined,
-    LikeOutlined,
-    MessageOutlined,
-  } from '@ant-design/icons-vue';
-  const listData = [];
-  for (let i = 0; i < 4; i++) {
-    listData.push({
-      href: 'https://www.antdv.com/',
-      title: `卖了 xxxxxxx 赚了 xx元`,
-      avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-      description:
-        '2020-01-01 12:11:11',
-      content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-    });
-  }
 
   export default{
-    components:{
-      StarOutlined,
-      LikeOutlined,
-      MessageOutlined,
+    props:{
+      username:String,
     },
-    data() {
-      return {
-        activeKey: [],
-        text: `A dog is a type of domesticated animal.Known for its loyalty and faithfulness,it can be found as a welcome guest in many households across the world.`,
-        listData,
-        pagination: {
-          onChange: page => {
-            console.log(page);
-          },
-          pageSize: 3,
-          size:'small',
-        },
-        actions: [
-          { type: 'StarOutlined', text: '156' },
-          { type: 'LikeOutlined', text: '156' },
-          { type: 'MessageOutlined', text: '2' },
-        ],
-      };
+    setup(props){
+      const {ctx} = getCurrentInstance();
+      let data = reactive({
+        activeKey:null,
+        listData:[],
+        payList:[],
+        incomeList:[],
+        getDate(){
+          axios.get(api.API_TRADE_PILOG,{
+            params:{
+              username:props.username
+            }
+          }).then(res=>{
+            console.log(res,"加载皮志日期");
+            if(res.data.status){
+              data.listData = res.data.data;
+            }else{
+              ctx.$message.error(res.data.msg);
+            }
+          }).catch(e=>{
+            console.log(e);
+            ctx.$message.error("网络错误，请联系管理员");
+          });
+        }
+      });
+
+      return data;
+    },
+    beforeCreate(){
+      this.getDate();
     },
     methods:{
       change(s){
-        console.log(s);
+        // console.log(s);
+        s?this.getLog(s):null;
+      },
+      getLog(date){
+        axios.get(api.API_TRADE_REAL_PILOG,{
+          params:{
+            username:this.username,
+            date:date
+          }
+        }).then(res=>{
+          console.log(res,"REAL PILOG");
+          if(res.data.status){
+            this.payList = res.data.data.pay;
+            this.incomeList = res.data.data.income;;
+          }else{
+            this.$message.error(res.data.msg);
+          }
+        }).catch(e=>{
+          console.log(e);
+          this.$message.error("网络错误，请联系管理员");
+        });
       },
       getPage(keywords){
         console.log(keywords,"PiArticle");

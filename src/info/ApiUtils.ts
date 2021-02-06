@@ -59,6 +59,16 @@ export default {
      */
     API_TRADE:v1+"trade",
     /**
+     * GET: 通过username获取皮志
+     */
+    API_TRADE_PILOG:v1+'trade/log',
+
+    /**
+     * 根据时间获取皮志
+     */
+    API_TRADE_REAL_PILOG:v1+"trade/log/date",
+
+    /**
      * POST: 获取足迹
      * PUT: 提交足迹
      */
@@ -82,6 +92,14 @@ export default {
      * GET: 获取个人主页用户信息,无参
      */
     API_USER_INDEX_INFO:v1+"user/index",
+    /**
+     * POST: PI Page  获取个人主页皮物
+     */
+    API_USER_SPACE_PRODUCT:v1+'user/product',
+    /**
+     * POST: Pi Page 获取个人主页皮帖
+     */
+    API_USER_SPACE_ARTICLE:v1+'user/article',
     /**
      * PUT: 关注和取消关注
      */

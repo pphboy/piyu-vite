@@ -15,7 +15,7 @@
             <p>{{userInfo.introduction}}</p>
             <div v-if="key == 'piProduct' || key== 'piArticle'" >
               <a-input-search
-                v-model:value="keyword"
+                v-model:value="temp"
                 placeholder="搜索皮物"
                 style="width: 200px;margin-bottom:12px;"
                 @search="onSearch" />
@@ -37,6 +37,7 @@
       <!-- 右侧 -->
       <a-col :span="16">
            <a-card
+              v-if="username"
               :bordered="false"
               style="width:100%;min-height: 587px;"
               :tab-list="tabList"
@@ -50,9 +51,9 @@
                   <HistoryOutlined v-if="item.key == 'piLog'"/> 
                    {{ item.name}} </span>
               </template>
-              <PiArticle  v-if="key == 'piArticle'" />
-              <PiProduct v-if="key == 'piProduct'" />
-              <PiLog  v-if="key == 'piLog'"/>
+              <PiArticle  :username="username" :keywords="keyword" v-if="key == 'piArticle'" />
+              <PiProduct :username="username" :keywords="keyword" v-if="key == 'piProduct'" />
+              <PiLog :username="username" v-if="key == 'piLog'"/>
             </a-card>
       </a-col>
       <a-col :span="2"></a-col>
@@ -65,16 +66,17 @@
   import PiArticle from '/@/components/child/PY/PiArticle.vue';
   import PiLog from '/@/components/child/PY/PiLog.vue';
   import axios from 'axios';
-  import {reactive} from 'vue';
+  import {toRefs,reactive,defineComponent,ref} from 'vue';
   import api from "/@/info/ApiUtils.ts";
   import { UserOutlined,SettingOutlined,HomeOutlined,ShopOutlined,ContainerOutlined,HistoryOutlined} from '@ant-design/icons-vue';
 
-  export default{
+  export default defineComponent({
     components:{UserOutlined,SettingOutlined,HomeOutlined,ShopOutlined,ContainerOutlined,HistoryOutlined,
       PiArticle,PiLog,PiProduct
     },
     data(){
       return {
+        temp:null,
         userInfo:null,
         following:false,
         username:null,
@@ -107,7 +109,7 @@
           username:vm.$route.params.username
         }
       }).then(res=>{
-        console.log(res);
+        console.log(res,"加载用户信息");
         /*如果没有用户信息，则跳转到404界面*/
         if(res.data.status){
           vm.userInfo = res.data.data.userInfo;
@@ -119,6 +121,7 @@
       }).catch(e=>{
         console.log(e);
       });
+      
     },
     methods:{
       sendFollows(){
@@ -146,22 +149,16 @@
 
       },
       onTabChange(key, type) {
+        this.temp = null;
         console.log(key, type);
         this[type] = key;
-        // this.keyword=null;
       },
       onSearch(keywords){
         var vm = this;
-        console.log(keywords);
-        // console.log(PiProduct);
-        if(vm.key == 'piProduct'){
-          PiProduct.methods.getPage(keywords);
-        }else if(vm.key == 'piArticle'){
-          PiArticle.methods.getPage(keywords);
-        }
+        this.keyword = keywords;
       }
     }
-  }
+  })
 </script>
 
 
