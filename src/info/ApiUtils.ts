@@ -11,6 +11,10 @@ export default {
      */
     API_PIPRODUCT:v1+"product", 
     /**
+     * GET: 文章记录访问量
+     */
+    API_PIPRODUCT_X: v1+"product/x",
+    /**
      * POST协议：获取的是要编辑的皮物
      * GET：获取一个正常的皮物，是不需要token，这个是展示界面的接口
      */
@@ -112,6 +116,7 @@ export default {
      * PAGE: 参数为pipage，获取用户关注列表
      */
     API_FOLLOWS_FOLLOWING:v1+"/follows/following",
+
 
     API_WALLET_GET:v1+"wallet/get" // 获取当铺用户的钱包
 

@@ -26,7 +26,7 @@
            <a-col   :span="18">
               <!-- a标签存放用户的空间的路径   -->
               <span @click="$router.push({name:'PY',params:{username:product.maker.username}})"><a style="color:black;">{{product.maker.username}}</a> <a-avatar    :src="product.maker.headImage" /></span>
-              {{product.createDate}} · 151 次点击
+              {{product.createDate}} · {{product.number}} 次点击
            </a-col>
           <a-col v-if="product.address" :span="6">
             <!-- 已售 -->
@@ -165,6 +165,16 @@ import {  LikeOutlined ,StarOutlined} from '@ant-design/icons-vue';
             }).catch(e=>{
               console.log(e);
               vm.$message.error("网络错误，请联系管理员");
+            });
+            /*添加访问量*/
+            axios.get(api.API_PIPRODUCT_X,{
+              params:{
+                pid:vm.product.id,
+              }
+            }).then(res=>{
+              console.log(res);
+            }).catch(e=>{
+              console.log(e);
             });
           }
          
